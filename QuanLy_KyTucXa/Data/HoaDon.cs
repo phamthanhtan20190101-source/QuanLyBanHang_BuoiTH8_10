@@ -8,7 +8,7 @@ namespace QuanLy_KyTucXa.Data
         // Mã hóa đơn: Tự tăng (Identity), không cần nhập tay
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int MaHoaDon { get; set; }
+        public string MaHoaDon { get; set; }
 
         // --- THÔNG TIN ĐỐI TƯỢNG ---
         // Sinh viên
@@ -34,7 +34,7 @@ namespace QuanLy_KyTucXa.Data
         public decimal TongTien { get; set; }
 
         // Trạng thái: True = Đã đóng, False = Chưa đóng
-        public bool TrangThai { get; set; } = false;
+        public string TrangThai { get; set; } 
 
         // Danh sách các mục chi tiết trong hóa đơn này
         public virtual ICollection<ChiTietHoaDon> ChiTietHoaDons { get; set; } = new List<ChiTietHoaDon>();

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QuanLy_KyTucXa.Data;
 
@@ -11,9 +12,11 @@ using QuanLy_KyTucXa.Data;
 namespace QuanLy_KyTucXa.Migrations
 {
     [DbContext(typeof(QLKTXDbContext))]
-    partial class QLKTXDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260327135639_TaoMoiBangHoaDonString")]
+    partial class TaoMoiBangHoaDonString
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,83 +24,6 @@ namespace QuanLy_KyTucXa.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("QuanLy_KyTucXa.Data.ChiTietHoaDon", b =>
-                {
-                    b.Property<int>("MaChiTiet")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaChiTiet"));
-
-                    b.Property<decimal>("DonGia")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("DonViTinh")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<string>("MaHoaDon")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("SoLuong")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TenDichVu")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<decimal>("ThanhTien")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("MaChiTiet");
-
-                    b.HasIndex("MaHoaDon");
-
-                    b.ToTable("ChiTietHoaDons");
-                });
-
-            modelBuilder.Entity("QuanLy_KyTucXa.Data.HoaDon", b =>
-                {
-                    b.Property<string>("MaHoaDon")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("MSSV")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<string>("MaQuanLy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<int>("Nam")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("NgayTao")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Thang")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("TongTien")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("TrangThai")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("MaHoaDon");
-
-                    b.HasIndex("MSSV");
-
-                    b.HasIndex("MaQuanLy");
-
-                    b.ToTable("HoaDons");
-                });
 
             modelBuilder.Entity("QuanLy_KyTucXa.Data.LichSuDongTien", b =>
                 {
@@ -277,36 +203,6 @@ namespace QuanLy_KyTucXa.Migrations
                     b.ToTable("ToaNhas");
                 });
 
-            modelBuilder.Entity("QuanLy_KyTucXa.Data.ChiTietHoaDon", b =>
-                {
-                    b.HasOne("QuanLy_KyTucXa.Data.HoaDon", "HoaDon")
-                        .WithMany("ChiTietHoaDons")
-                        .HasForeignKey("MaHoaDon")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("HoaDon");
-                });
-
-            modelBuilder.Entity("QuanLy_KyTucXa.Data.HoaDon", b =>
-                {
-                    b.HasOne("QuanLy_KyTucXa.Data.SinhVien", "SinhVien")
-                        .WithMany()
-                        .HasForeignKey("MSSV")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("QuanLy_KyTucXa.Data.QuanLy", "QuanLy")
-                        .WithMany()
-                        .HasForeignKey("MaQuanLy")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("QuanLy");
-
-                    b.Navigation("SinhVien");
-                });
-
             modelBuilder.Entity("QuanLy_KyTucXa.Data.Phong", b =>
                 {
                     b.HasOne("QuanLy_KyTucXa.Data.ToaNha", "ToaNha")
@@ -338,11 +234,6 @@ namespace QuanLy_KyTucXa.Migrations
                         .IsRequired();
 
                     b.Navigation("Phong");
-                });
-
-            modelBuilder.Entity("QuanLy_KyTucXa.Data.HoaDon", b =>
-                {
-                    b.Navigation("ChiTietHoaDons");
                 });
 
             modelBuilder.Entity("QuanLy_KyTucXa.Data.ToaNha", b =>

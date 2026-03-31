@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ClosedXML.Excel;
 
 namespace QuanLy_KyTucXa.Forms
 {
@@ -90,9 +91,9 @@ namespace QuanLy_KyTucXa.Forms
             }
         }
 
-        
 
-        
+
+
 
         private void btnThem_Click(object sender, EventArgs e)
         {
@@ -180,7 +181,7 @@ namespace QuanLy_KyTucXa.Forms
 
                 if (xuLyThem)
                 {
-                   
+
 
                     // Kiểm tra trùng mã
                     if (context.Phongs.Find(txtMaPhong.Text) != null)
@@ -269,7 +270,7 @@ namespace QuanLy_KyTucXa.Forms
             txtMaPhong.Text = row.Cells["MaPhongA"].Value?.ToString();
             txtGiaPhong.Text = row.Cells["GiaA"].Value?.ToString();
 
-            
+
             string soLuongChuoi = row.Cells["SoLuongDangOA"].Value?.ToString(); // Lấy chuỗi "1/4"
             if (!string.IsNullOrEmpty(soLuongChuoi) && soLuongChuoi.Contains("/"))
             {
@@ -317,7 +318,7 @@ namespace QuanLy_KyTucXa.Forms
             txtMaPhong.Text = row.Cells["MaPhongC"].Value?.ToString();
             txtGiaPhong.Text = row.Cells["GiaC"].Value?.ToString();
 
-            
+
             string soLuongChuoi = row.Cells["SoLuongDangOC"].Value?.ToString(); // Lấy chuỗi "1/4"
             if (!string.IsNullOrEmpty(soLuongChuoi) && soLuongChuoi.Contains("/"))
             {
@@ -353,6 +354,147 @@ namespace QuanLy_KyTucXa.Forms
 
             cobToaNha.Text = "Tòa D";
             currentMaPhong = txtMaPhong.Text;
+        }
+
+        private void btnNhap_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Title = "Nhập dữ liệu phòng từ tập tin Excel";
+            openFileDialog.Filter = "Tập tin Excel|*.xlsx";
+            openFileDialog.Multiselect = false;
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    DataTable table = new DataTable();
+                    using (XLWorkbook workbook = new XLWorkbook(openFileDialog.FileName))
+                    {
+                        var worksheet = workbook.Worksheet(1); // Lấy Sheet đầu tiên
+                        bool firstRow = true;
+                        string readRange = "1:1";
+
+                        foreach (IXLRow row in worksheet.RowsUsed())
+                        {
+                            // Đọc dòng tiêu đề để tạo cột
+                            if (firstRow)
+                            {
+                                readRange = string.Format("1:{0}", row.LastCellUsed().Address.ColumnNumber);
+                                foreach (IXLCell cell in row.Cells(readRange))
+                                {
+                                    table.Columns.Add(cell.Value.ToString());
+                                }
+                                firstRow = false;
+                            }
+                            else // Đọc nội dung
+                            {
+                                table.Rows.Add();
+                                int cellIndex = 0;
+                                foreach (IXLCell cell in row.Cells(readRange))
+                                {
+                                    table.Rows[table.Rows.Count - 1][cellIndex] = cell.Value.ToString();
+                                    cellIndex++;
+                                }
+                            }
+                        }
+                    }
+
+                    // Xử lý dữ liệu đã đọc được
+                    if (table.Rows.Count > 0)
+                    {
+                        int countThanhCong = 0;
+                        foreach (DataRow r in table.Rows)
+                        {
+                            string maPhongExcel = r["MaPhong"].ToString();
+
+                            // 1. Nếu Mã phòng này đã có trong phần mềm -> Bỏ qua để không bị lỗi trùng lặp
+                            if (context.Phongs.Any(p => p.MaPhong == maPhongExcel))
+                                continue;
+
+                            // 2. Tạo đối tượng Phòng mới và lấy dữ liệu từ Excel
+                            Phong p = new Phong();
+                            p.MaPhong = maPhongExcel;
+                            p.MaToaNha = r["MaToaNha"].ToString(); // "A", "B", "C", "D"
+
+                            // Xử lý chuyển đổi kiểu số an toàn
+                            if (int.TryParse(r["LoaiPhong"].ToString(), out int loaiPhong))
+                                p.LoaiPhong = loaiPhong; // 4 hoặc 6
+
+                            if (decimal.TryParse(r["Gia"].ToString(), out decimal gia))
+                                p.Gia = gia;
+
+                            // 3. Tự động gán các giá trị mặc định y như lúc Thêm bằng tay
+                            p.TrangThai = "Trống";
+                            p.TienDienNuoc = 100000;
+                            p.SoLuongDangO = 0;
+
+                            context.Phongs.Add(p);
+                            countThanhCong++;
+                        }
+
+                        context.SaveChanges();
+                        MessageBox.Show($"Đã nhập thành công {countThanhCong} phòng mới.\n(Các mã phòng đã tồn tại bị bỏ qua)", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // Gọi hàm LoadDataToAllGrids để làm mới cả 4 bảng (Tòa A, B, C, D) lập tức
+                        LoadDataToAllGrids();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Tập tin Excel rỗng hoặc không đúng định dạng.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi đọc file Excel: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void btnXuat_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Title = "Xuất dữ liệu Phòng ra Excel";
+            saveFileDialog.Filter = "Tập tin Excel|*.xlsx";
+            saveFileDialog.FileName = "DanhSachPhong_" + DateTime.Now.ToString("dd_MM_yyyy") + ".xlsx";
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    DataTable table = new DataTable();
+                    // Tạo các cột tương ứng với thông tin Phòng
+                    table.Columns.Add("MaPhong", typeof(string));
+                    table.Columns.Add("MaToaNha", typeof(string));
+                    table.Columns.Add("LoaiPhong", typeof(int));
+                    table.Columns.Add("Gia", typeof(decimal));
+
+                    // Lấy toàn bộ danh sách phòng từ CSDL
+                    var danhSachPhong = context.Phongs.ToList();
+                    foreach (var p in danhSachPhong)
+                    {
+                        table.Rows.Add(
+                            p.MaPhong,
+                            p.MaToaNha,
+                            p.LoaiPhong,
+                            p.Gia
+                        );
+                    }
+
+                    // Dùng ClosedXML xuất ra file
+                    using (XLWorkbook wb = new XLWorkbook())
+                    {
+                        var sheet = wb.Worksheets.Add(table, "Phong");
+                        sheet.Columns().AdjustToContents(); // Tự động căn chỉnh độ rộng cột
+                        wb.SaveAs(saveFileDialog.FileName);
+                    }
+
+                    MessageBox.Show("Đã xuất dữ liệu ra tập tin Excel thành công.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi xuất file: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 

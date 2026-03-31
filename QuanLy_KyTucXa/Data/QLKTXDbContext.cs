@@ -44,7 +44,7 @@ namespace QuanLy_KyTucXa.Data
                 .HasOne(h => h.QuanLy)
                 .WithMany()
                 .HasForeignKey(h => h.MaQuanLy)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Restrict); 
         }
     }
 }

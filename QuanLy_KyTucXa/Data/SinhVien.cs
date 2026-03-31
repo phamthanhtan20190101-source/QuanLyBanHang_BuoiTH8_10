@@ -39,6 +39,11 @@ namespace QuanLy_KyTucXa.Data
 
         [System.ComponentModel.DataAnnotations.StringLength(50)]
         public string TrangThaiTienPhong { get; set; } = "Chưa đóng";
+
+        public decimal TienNo { get; set; } = 0;
+
+        // Lưu lại tháng cuối cùng đã tự động cộng nợ để tránh cộng trùng
+        public int ThangDaCapNhatNo { get; set; } = 0;
         // 9. Mã Phòng (Khóa ngoại)
 
 

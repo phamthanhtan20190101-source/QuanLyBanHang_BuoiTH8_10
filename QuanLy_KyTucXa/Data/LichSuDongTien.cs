@@ -12,7 +12,7 @@ namespace QuanLy_KyTucXa.Data
         public class LichSuDongTien
         {
             [Key]
-            public int MaThanhToan { get; set; }
+            public string MaThanhToan { get; set; } // Với mã thanh toán là MTT_"Tháng Đóng"_"3 số cuối MSSV"
 
             public string MSSV { get; set; }
 

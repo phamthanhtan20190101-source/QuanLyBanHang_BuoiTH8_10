@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QuanLy_KyTucXa.Data;
 
@@ -11,9 +12,11 @@ using QuanLy_KyTucXa.Data;
 namespace QuanLy_KyTucXa.Migrations
 {
     [DbContext(typeof(QLKTXDbContext))]
-    partial class QLKTXDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260324142113_ThemCotThangCapNhat")]
+    partial class ThemCotThangCapNhat
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,9 +41,8 @@ namespace QuanLy_KyTucXa.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<string>("MaHoaDon")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("MaHoaDon")
+                        .HasColumnType("int");
 
                     b.Property<int>("SoLuong")
                         .HasColumnType("int");
@@ -62,9 +64,11 @@ namespace QuanLy_KyTucXa.Migrations
 
             modelBuilder.Entity("QuanLy_KyTucXa.Data.HoaDon", b =>
                 {
-                    b.Property<string>("MaHoaDon")
+                    b.Property<int>("MaHoaDon")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaHoaDon"));
 
                     b.Property<string>("MSSV")
                         .IsRequired()
@@ -86,9 +90,8 @@ namespace QuanLy_KyTucXa.Migrations
                     b.Property<decimal>("TongTien")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("TrangThai")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("TrangThai")
+                        .HasColumnType("bit");
 
                     b.HasKey("MaHoaDon");
 

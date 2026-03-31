@@ -30,19 +30,32 @@
         {
             groupBox1 = new GroupBox();
             dataGridViewToaA = new DataGridView();
+            MaPhongA = new DataGridViewTextBoxColumn();
+            GiaA = new DataGridViewTextBoxColumn();
+            SoLuongDangOA = new DataGridViewTextBoxColumn();
             groupBox2 = new GroupBox();
             dataGridViewToaD = new DataGridView();
+            MaPhongD = new DataGridViewTextBoxColumn();
+            GiaD = new DataGridViewTextBoxColumn();
+            SoLuongDangOD = new DataGridViewTextBoxColumn();
             groupBox3 = new GroupBox();
             dataGridViewToaB = new DataGridView();
+            MaPhongB = new DataGridViewTextBoxColumn();
+            GiaB = new DataGridViewTextBoxColumn();
+            SoLuongDangOB = new DataGridViewTextBoxColumn();
             groupBox4 = new GroupBox();
             dataGridViewToaC = new DataGridView();
+            MaPhongC = new DataGridViewTextBoxColumn();
+            GiaC = new DataGridViewTextBoxColumn();
+            SoLuongDangOC = new DataGridViewTextBoxColumn();
             label1 = new Label();
             label3 = new Label();
             label4 = new Label();
             groupBox5 = new GroupBox();
+            btnXuat = new Button();
+            btnNhap = new Button();
             button1 = new Button();
             txtMaPhong = new TextBox();
-            btnQuayLai = new Button();
             txtGiaPhong = new TextBox();
             label2 = new Label();
             cobLoaiPhong = new ComboBox();
@@ -53,18 +66,6 @@
             btnThem = new Button();
             btnTimKiem = new Button();
             btnHuyBo = new Button();
-            MaPhongA = new DataGridViewTextBoxColumn();
-            GiaA = new DataGridViewTextBoxColumn();
-            SoLuongDangOA = new DataGridViewTextBoxColumn();
-            MaPhongD = new DataGridViewTextBoxColumn();
-            GiaD = new DataGridViewTextBoxColumn();
-            SoLuongDangOD = new DataGridViewTextBoxColumn();
-            MaPhongC = new DataGridViewTextBoxColumn();
-            GiaC = new DataGridViewTextBoxColumn();
-            SoLuongDangOC = new DataGridViewTextBoxColumn();
-            MaPhongB = new DataGridViewTextBoxColumn();
-            GiaB = new DataGridViewTextBoxColumn();
-            SoLuongDangOB = new DataGridViewTextBoxColumn();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewToaA).BeginInit();
             groupBox2.SuspendLayout();
@@ -102,6 +103,27 @@
             dataGridViewToaA.TabIndex = 0;
             dataGridViewToaA.CellClick += dataGridViewToaA_CellClick;
             // 
+            // MaPhongA
+            // 
+            MaPhongA.DataPropertyName = "MaPhong";
+            MaPhongA.HeaderText = "Mã Phòng";
+            MaPhongA.MinimumWidth = 8;
+            MaPhongA.Name = "MaPhongA";
+            // 
+            // GiaA
+            // 
+            GiaA.DataPropertyName = "Gia";
+            GiaA.HeaderText = "Giá Phòng";
+            GiaA.MinimumWidth = 8;
+            GiaA.Name = "GiaA";
+            // 
+            // SoLuongDangOA
+            // 
+            SoLuongDangOA.DataPropertyName = "SoLuongDangO";
+            SoLuongDangOA.HeaderText = "Số Lượng";
+            SoLuongDangOA.MinimumWidth = 8;
+            SoLuongDangOA.Name = "SoLuongDangOA";
+            // 
             // groupBox2
             // 
             groupBox2.Controls.Add(dataGridViewToaD);
@@ -127,6 +149,27 @@
             dataGridViewToaD.Size = new Size(456, 302);
             dataGridViewToaD.TabIndex = 1;
             dataGridViewToaD.CellClick += dataGridViewToaD_CellClick;
+            // 
+            // MaPhongD
+            // 
+            MaPhongD.DataPropertyName = "MaPhong";
+            MaPhongD.HeaderText = "Mã Phòng";
+            MaPhongD.MinimumWidth = 8;
+            MaPhongD.Name = "MaPhongD";
+            // 
+            // GiaD
+            // 
+            GiaD.DataPropertyName = "Gia";
+            GiaD.HeaderText = "Giá phòng";
+            GiaD.MinimumWidth = 8;
+            GiaD.Name = "GiaD";
+            // 
+            // SoLuongDangOD
+            // 
+            SoLuongDangOD.DataPropertyName = "SoLuongDangO";
+            SoLuongDangOD.HeaderText = "Số Lượng";
+            SoLuongDangOD.MinimumWidth = 8;
+            SoLuongDangOD.Name = "SoLuongDangOD";
             // 
             // groupBox3
             // 
@@ -154,6 +197,27 @@
             dataGridViewToaB.TabIndex = 1;
             dataGridViewToaB.CellClick += dataGridViewToaB_CellClick;
             // 
+            // MaPhongB
+            // 
+            MaPhongB.DataPropertyName = "MaPhong";
+            MaPhongB.HeaderText = "Mã Phòng";
+            MaPhongB.MinimumWidth = 8;
+            MaPhongB.Name = "MaPhongB";
+            // 
+            // GiaB
+            // 
+            GiaB.DataPropertyName = "Gia";
+            GiaB.HeaderText = "Giá Phòng";
+            GiaB.MinimumWidth = 8;
+            GiaB.Name = "GiaB";
+            // 
+            // SoLuongDangOB
+            // 
+            SoLuongDangOB.DataPropertyName = "SoLuongDangO";
+            SoLuongDangOB.HeaderText = "Số lượng";
+            SoLuongDangOB.MinimumWidth = 8;
+            SoLuongDangOB.Name = "SoLuongDangOB";
+            // 
             // groupBox4
             // 
             groupBox4.Controls.Add(dataGridViewToaC);
@@ -179,6 +243,27 @@
             dataGridViewToaC.Size = new Size(456, 316);
             dataGridViewToaC.TabIndex = 1;
             dataGridViewToaC.CellClick += dataGridViewToaC_CellClick;
+            // 
+            // MaPhongC
+            // 
+            MaPhongC.DataPropertyName = "MaPhong";
+            MaPhongC.HeaderText = "Mã Phòng";
+            MaPhongC.MinimumWidth = 8;
+            MaPhongC.Name = "MaPhongC";
+            // 
+            // GiaC
+            // 
+            GiaC.DataPropertyName = "Gia";
+            GiaC.HeaderText = "Giá phòng";
+            GiaC.MinimumWidth = 8;
+            GiaC.Name = "GiaC";
+            // 
+            // SoLuongDangOC
+            // 
+            SoLuongDangOC.DataPropertyName = "SoLuongDangO";
+            SoLuongDangOC.HeaderText = "Số Lượng";
+            SoLuongDangOC.MinimumWidth = 8;
+            SoLuongDangOC.Name = "SoLuongDangOC";
             // 
             // label1
             // 
@@ -209,9 +294,10 @@
             // 
             // groupBox5
             // 
+            groupBox5.Controls.Add(btnXuat);
+            groupBox5.Controls.Add(btnNhap);
             groupBox5.Controls.Add(button1);
             groupBox5.Controls.Add(txtMaPhong);
-            groupBox5.Controls.Add(btnQuayLai);
             groupBox5.Controls.Add(txtGiaPhong);
             groupBox5.Controls.Add(label2);
             groupBox5.Controls.Add(cobLoaiPhong);
@@ -232,6 +318,26 @@
             groupBox5.TabStop = false;
             groupBox5.Text = "Chức năng";
             // 
+            // btnXuat
+            // 
+            btnXuat.Location = new Point(655, 255);
+            btnXuat.Name = "btnXuat";
+            btnXuat.Size = new Size(236, 46);
+            btnXuat.TabIndex = 25;
+            btnXuat.Text = "Xuất file Excel";
+            btnXuat.UseVisualStyleBackColor = true;
+            btnXuat.Click += btnXuat_Click;
+            // 
+            // btnNhap
+            // 
+            btnNhap.Location = new Point(395, 255);
+            btnNhap.Name = "btnNhap";
+            btnNhap.Size = new Size(236, 46);
+            btnNhap.TabIndex = 24;
+            btnNhap.Text = "Nhập file Excel";
+            btnNhap.UseVisualStyleBackColor = true;
+            btnNhap.Click += btnNhap_Click;
+            // 
             // button1
             // 
             button1.Location = new Point(823, -97);
@@ -247,15 +353,6 @@
             txtMaPhong.Name = "txtMaPhong";
             txtMaPhong.Size = new Size(182, 31);
             txtMaPhong.TabIndex = 16;
-            // 
-            // btnQuayLai
-            // 
-            btnQuayLai.Location = new Point(823, 42);
-            btnQuayLai.Name = "btnQuayLai";
-            btnQuayLai.Size = new Size(144, 49);
-            btnQuayLai.TabIndex = 15;
-            btnQuayLai.Text = "Quay lại";
-            btnQuayLai.UseVisualStyleBackColor = true;
             // 
             // txtGiaPhong
             // 
@@ -297,9 +394,9 @@
             // 
             // btnLuu
             // 
-            btnLuu.Location = new Point(615, 113);
+            btnLuu.Location = new Point(655, 113);
             btnLuu.Name = "btnLuu";
-            btnLuu.Size = new Size(144, 49);
+            btnLuu.Size = new Size(236, 49);
             btnLuu.TabIndex = 9;
             btnLuu.Text = "Lưu";
             btnLuu.UseVisualStyleBackColor = true;
@@ -309,7 +406,7 @@
             // 
             btnSua.Location = new Point(395, 113);
             btnSua.Name = "btnSua";
-            btnSua.Size = new Size(144, 49);
+            btnSua.Size = new Size(236, 49);
             btnSua.TabIndex = 9;
             btnSua.Text = "Sửa";
             btnSua.UseVisualStyleBackColor = true;
@@ -319,7 +416,7 @@
             // 
             btnXoa.Location = new Point(395, 187);
             btnXoa.Name = "btnXoa";
-            btnXoa.Size = new Size(144, 49);
+            btnXoa.Size = new Size(236, 49);
             btnXoa.TabIndex = 9;
             btnXoa.Text = "Xóa";
             btnXoa.UseVisualStyleBackColor = true;
@@ -329,7 +426,7 @@
             // 
             btnThem.Location = new Point(395, 42);
             btnThem.Name = "btnThem";
-            btnThem.Size = new Size(144, 49);
+            btnThem.Size = new Size(236, 49);
             btnThem.TabIndex = 9;
             btnThem.Text = "Thêm ";
             btnThem.UseVisualStyleBackColor = true;
@@ -337,106 +434,22 @@
             // 
             // btnTimKiem
             // 
-            btnTimKiem.Location = new Point(615, 187);
+            btnTimKiem.Location = new Point(655, 187);
             btnTimKiem.Name = "btnTimKiem";
-            btnTimKiem.Size = new Size(144, 49);
+            btnTimKiem.Size = new Size(236, 49);
             btnTimKiem.TabIndex = 9;
             btnTimKiem.Text = "Tìm Kiếm";
             btnTimKiem.UseVisualStyleBackColor = true;
             // 
             // btnHuyBo
             // 
-            btnHuyBo.Location = new Point(615, 42);
+            btnHuyBo.Location = new Point(655, 42);
             btnHuyBo.Name = "btnHuyBo";
-            btnHuyBo.Size = new Size(144, 49);
+            btnHuyBo.Size = new Size(236, 49);
             btnHuyBo.TabIndex = 9;
             btnHuyBo.Text = "Hủy bỏ";
             btnHuyBo.UseVisualStyleBackColor = true;
             btnHuyBo.Click += btnHuyBo_Click;
-            // 
-            // MaPhongA
-            // 
-            MaPhongA.DataPropertyName = "MaPhong";
-            MaPhongA.HeaderText = "Mã Phòng";
-            MaPhongA.MinimumWidth = 8;
-            MaPhongA.Name = "MaPhongA";
-            // 
-            // GiaA
-            // 
-            GiaA.DataPropertyName = "Gia";
-            GiaA.HeaderText = "Giá Phòng";
-            GiaA.MinimumWidth = 8;
-            GiaA.Name = "GiaA";
-            // 
-            // SoLuongDangOA
-            // 
-            SoLuongDangOA.DataPropertyName = "SoLuongDangO";
-            SoLuongDangOA.HeaderText = "Số Lượng";
-            SoLuongDangOA.MinimumWidth = 8;
-            SoLuongDangOA.Name = "SoLuongDangOA";
-            // 
-            // MaPhongD
-            // 
-            MaPhongD.DataPropertyName = "MaPhong";
-            MaPhongD.HeaderText = "Mã Phòng";
-            MaPhongD.MinimumWidth = 8;
-            MaPhongD.Name = "MaPhongD";
-            // 
-            // GiaD
-            // 
-            GiaD.DataPropertyName = "Gia";
-            GiaD.HeaderText = "Giá phòng";
-            GiaD.MinimumWidth = 8;
-            GiaD.Name = "GiaD";
-            // 
-            // SoLuongDangOD
-            // 
-            SoLuongDangOD.DataPropertyName = "SoLuongDangO";
-            SoLuongDangOD.HeaderText = "Số Lượng";
-            SoLuongDangOD.MinimumWidth = 8;
-            SoLuongDangOD.Name = "SoLuongDangOD";
-            // 
-            // MaPhongC
-            // 
-            MaPhongC.DataPropertyName = "MaPhong";
-            MaPhongC.HeaderText = "Mã Phòng";
-            MaPhongC.MinimumWidth = 8;
-            MaPhongC.Name = "MaPhongC";
-            // 
-            // GiaC
-            // 
-            GiaC.DataPropertyName = "Gia";
-            GiaC.HeaderText = "Giá phòng";
-            GiaC.MinimumWidth = 8;
-            GiaC.Name = "GiaC";
-            // 
-            // SoLuongDangOC
-            // 
-            SoLuongDangOC.DataPropertyName = "SoLuongDangO";
-            SoLuongDangOC.HeaderText = "Số Lượng";
-            SoLuongDangOC.MinimumWidth = 8;
-            SoLuongDangOC.Name = "SoLuongDangOC";
-            // 
-            // MaPhongB
-            // 
-            MaPhongB.DataPropertyName = "MaPhong";
-            MaPhongB.HeaderText = "Mã Phòng";
-            MaPhongB.MinimumWidth = 8;
-            MaPhongB.Name = "MaPhongB";
-            // 
-            // GiaB
-            // 
-            GiaB.DataPropertyName = "Gia";
-            GiaB.HeaderText = "Giá Phòng";
-            GiaB.MinimumWidth = 8;
-            GiaB.Name = "GiaB";
-            // 
-            // SoLuongDangOB
-            // 
-            SoLuongDangOB.DataPropertyName = "SoLuongDangO";
-            SoLuongDangOB.HeaderText = "Số lượng";
-            SoLuongDangOB.MinimumWidth = 8;
-            SoLuongDangOB.Name = "SoLuongDangOB";
             // 
             // frmToaNha
             // 
@@ -485,7 +498,6 @@
         private Button btnXoa;
         private TextBox txtGiaPhong;
         private DataGridView dataGridViewToaA;
-        private Button btnQuayLai;
         private DataGridView dataGridViewToaD;
         private DataGridView dataGridViewToaB;
         private DataGridView dataGridViewToaC;
@@ -503,5 +515,7 @@
         private DataGridViewTextBoxColumn MaPhongC;
         private DataGridViewTextBoxColumn GiaC;
         private DataGridViewTextBoxColumn SoLuongDangOC;
+        private Button btnXuat;
+        private Button btnNhap;
     }
 }

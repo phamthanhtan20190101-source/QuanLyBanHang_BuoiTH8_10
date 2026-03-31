@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ClosedXML.Excel;
 
 namespace QuanLy_KyTucXa.Forms
 {
@@ -201,7 +202,7 @@ namespace QuanLy_KyTucXa.Forms
                 return;
             }
 
-            
+
             if (!System.Text.RegularExpressions.Regex.IsMatch(txtmssv.Text, @"^SV\d{3}$"))
             {
                 MessageBox.Show("Mã số sinh viên không hợp lệ!", "Sai định dạng", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -324,6 +325,165 @@ namespace QuanLy_KyTucXa.Forms
 
             // Gọi hàm load phòng để nó tự động lọc lại theo Nam/Nữ
             LoadComboboxPhong(gioiTinh);
+        }
+
+        private void btnXuat_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Title = "Xuất dữ liệu Sinh Viên ra Excel";
+            saveFileDialog.Filter = "Tập tin Excel|*.xlsx"; // ClosedXML hỗ trợ tốt nhất .xlsx
+            saveFileDialog.FileName = "DanhSachSinhVien_" + DateTime.Now.ToString("dd_MM_yyyy") + ".xlsx";
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    DataTable table = new DataTable();
+                    // Tạo các cột tương ứng với SinhVien
+                    table.Columns.Add("MSSV", typeof(string));
+                    table.Columns.Add("HoTen", typeof(string));
+                    table.Columns.Add("Lop", typeof(string));
+                    table.Columns.Add("QueQuan", typeof(string));
+                    table.Columns.Add("SDT", typeof(string));
+                    table.Columns.Add("NgaySinh", typeof(string));
+                    table.Columns.Add("GioiTinh", typeof(string));
+                    table.Columns.Add("NgayVao", typeof(string));
+                    table.Columns.Add("MaPhong", typeof(string));
+
+                    // Đổ dữ liệu từ DB vào DataTable
+                    var danhSachSV = context.SinhViens.ToList();
+                    foreach (var sv in danhSachSV)
+                    {
+                        table.Rows.Add(
+                            sv.MSSV,
+                            sv.HoTen,
+                            sv.Lop,
+                            sv.QueQuan,
+                            sv.SDT,
+                            sv.NgaySinh.ToString("dd/MM/yyyy"), // Format ngày tháng cho đẹp
+                            sv.GioiTinh,
+                            sv.NgayVao.ToString("dd/MM/yyyy"),
+                            sv.MaPhong
+                        );
+                    }
+
+                    // Dùng ClosedXML xuất ra file
+                    using (XLWorkbook wb = new XLWorkbook())
+                    {
+                        var sheet = wb.Worksheets.Add(table, "SinhVien");
+                        sheet.Columns().AdjustToContents(); // Tự động căn chỉnh độ rộng cột
+                        wb.SaveAs(saveFileDialog.FileName);
+                    }
+
+                    MessageBox.Show("Đã xuất dữ liệu ra tập tin Excel thành công.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi xuất file: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void btnNhap_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Title = "Nhập dữ liệu từ tập tin Excel";
+            openFileDialog.Filter = "Tập tin Excel|*.xlsx";
+            openFileDialog.Multiselect = false;
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    DataTable table = new DataTable();
+                    using (XLWorkbook workbook = new XLWorkbook(openFileDialog.FileName))
+                    {
+                        var worksheet = workbook.Worksheet(1); // Lấy Sheet đầu tiên
+                        bool firstRow = true;
+                        string readRange = "1:1";
+
+                        foreach (IXLRow row in worksheet.RowsUsed())
+                        {
+                            // Đọc dòng tiêu đề để tạo cột
+                            if (firstRow)
+                            {
+                                readRange = string.Format("1:{0}", row.LastCellUsed().Address.ColumnNumber);
+                                foreach (IXLCell cell in row.Cells(readRange))
+                                {
+                                    table.Columns.Add(cell.Value.ToString());
+                                }
+                                firstRow = false;
+                            }
+                            else // Đọc nội dung
+                            {
+                                table.Rows.Add();
+                                int cellIndex = 0;
+                                foreach (IXLCell cell in row.Cells(readRange))
+                                {
+                                    table.Rows[table.Rows.Count - 1][cellIndex] = cell.Value.ToString();
+                                    cellIndex++;
+                                }
+                            }
+                        }
+                    }
+
+                    // Xử lý dữ liệu đã đọc được
+                    if (table.Rows.Count > 0)
+                    {
+                        int countThanhCong = 0;
+                        foreach (DataRow r in table.Rows)
+                        {
+                            string mssvExcel = r["MSSV"].ToString();
+
+                            // 1. Kiểm tra xem MSSV này đã có trong CSDL chưa, nếu có thì bỏ qua dòng này
+                            if (context.SinhViens.Any(s => s.MSSV == mssvExcel))
+                                continue;
+
+                            // 2. Map dữ liệu vào object SinhVien
+                            SinhVien sv = new SinhVien();
+                            sv.MSSV = mssvExcel;
+                            sv.HoTen = r["HoTen"].ToString();
+                            sv.Lop = r["Lop"].ToString();
+                            sv.QueQuan = r["QueQuan"].ToString();
+                            sv.SDT = r["SDT"].ToString();
+                            sv.GioiTinh = r["GioiTinh"].ToString();
+                            sv.MaPhong = r["MaPhong"].ToString();
+
+                            // Xử lý chuyển đổi ngày tháng an toàn
+                            if (DateTime.TryParseExact(r["NgaySinh"].ToString(), "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime ns))
+                                sv.NgaySinh = ns;
+
+                            if (DateTime.TryParseExact(r["NgayVao"].ToString(), "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime nv))
+                                sv.NgayVao = nv;
+
+                            // 3. Tự động tạo Tài khoản giống như khi Thêm bằng tay
+                            string matKhauTuDong = sv.MSSV.Length >= 3 ? sv.MSSV.Substring(sv.MSSV.Length - 3) : sv.MSSV;
+                            TaiKhoan tk = new TaiKhoan();
+                            tk.TenTaiKhoan = sv.MSSV;
+                            tk.MatKhau = matKhauTuDong;
+                            tk.Quyen = "SinhVien";
+
+                            context.SinhViens.Add(sv);
+                            context.TaiKhoans.Add(tk);
+                            countThanhCong++;
+                        }
+
+                        context.SaveChanges();
+                        MessageBox.Show($"Đã nhập thành công {countThanhCong} sinh viên mới.\n(Các sinh viên đã tồn tại MSSV bị bỏ qua để tránh lỗi)", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // Gọi hàm LoadData để cập nhật lại lưới DataGridView
+                        LoadData();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Tập tin Excel rỗng hoặc không đúng định dạng.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi đọc file Excel: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }

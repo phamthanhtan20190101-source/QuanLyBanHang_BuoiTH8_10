@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             txthoten = new TextBox();
             label8 = new Label();
             txtlop = new TextBox();
@@ -45,12 +45,12 @@
             SDT = new DataGridViewTextBoxColumn();
             NgayVao = new DataGridViewTextBoxColumn();
             MaPhong = new DataGridViewTextBoxColumn();
+            TrangThaiTienPhong = new DataGridViewTextBoxColumn();
             groupBox2 = new GroupBox();
             groupBox1 = new GroupBox();
             checkSVno = new CheckBox();
             label4 = new Label();
             txtTienNo = new TextBox();
-            btnLichSu = new Button();
             btnXacnhan = new Button();
             label3 = new Label();
             checkedList_DongTien = new CheckedListBox();
@@ -121,6 +121,7 @@
             btnThoat.TabIndex = 3;
             btnThoat.Text = "Thoát";
             btnThoat.UseVisualStyleBackColor = true;
+            btnThoat.Click += btnThoat_Click;
             // 
             // label1
             // 
@@ -144,11 +145,12 @@
             dataGridView.AllowUserToDeleteRows = false;
             dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView.Columns.AddRange(new DataGridViewColumn[] { MSSV, HoTen, Lop, SDT, NgayVao, MaPhong });
+            dataGridView.Columns.AddRange(new DataGridViewColumn[] { MSSV, HoTen, Lop, SDT, NgayVao, MaPhong, TrangThaiTienPhong });
             dataGridView.Dock = DockStyle.Fill;
             dataGridView.Location = new Point(3, 27);
             dataGridView.MultiSelect = false;
             dataGridView.Name = "dataGridView";
+            dataGridView.ReadOnly = true;
             dataGridView.RowHeadersWidth = 62;
             dataGridView.Size = new Size(1312, 524);
             dataGridView.TabIndex = 0;
@@ -159,38 +161,52 @@
             MSSV.HeaderText = "Mã Số Sinh Viên";
             MSSV.MinimumWidth = 8;
             MSSV.Name = "MSSV";
+            MSSV.ReadOnly = true;
             // 
             // HoTen
             // 
             HoTen.HeaderText = "Họ Tên";
             HoTen.MinimumWidth = 8;
             HoTen.Name = "HoTen";
+            HoTen.ReadOnly = true;
             // 
             // Lop
             // 
             Lop.HeaderText = "Lớp";
             Lop.MinimumWidth = 8;
             Lop.Name = "Lop";
+            Lop.ReadOnly = true;
             // 
             // SDT
             // 
             SDT.HeaderText = "Số Điện Thoại";
             SDT.MinimumWidth = 8;
             SDT.Name = "SDT";
+            SDT.ReadOnly = true;
             // 
             // NgayVao
             // 
-            dataGridViewCellStyle1.Format = "dd/MM/yyyy";
-            NgayVao.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Format = "dd/MM/yyyy";
+            NgayVao.DefaultCellStyle = dataGridViewCellStyle2;
             NgayVao.HeaderText = "Ngày Vào";
             NgayVao.MinimumWidth = 8;
             NgayVao.Name = "NgayVao";
+            NgayVao.ReadOnly = true;
             // 
             // MaPhong
             // 
             MaPhong.HeaderText = "Mã Phòng";
             MaPhong.MinimumWidth = 8;
             MaPhong.Name = "MaPhong";
+            MaPhong.ReadOnly = true;
+            // 
+            // TrangThaiTienPhong
+            // 
+            TrangThaiTienPhong.DataPropertyName = "TrangThaiTienPhong";
+            TrangThaiTienPhong.HeaderText = "Trạng Thái Tiền Phòng";
+            TrangThaiTienPhong.MinimumWidth = 8;
+            TrangThaiTienPhong.Name = "TrangThaiTienPhong";
+            TrangThaiTienPhong.ReadOnly = true;
             // 
             // groupBox2
             // 
@@ -207,7 +223,6 @@
             groupBox1.Controls.Add(checkSVno);
             groupBox1.Controls.Add(label4);
             groupBox1.Controls.Add(txtTienNo);
-            groupBox1.Controls.Add(btnLichSu);
             groupBox1.Controls.Add(btnXacnhan);
             groupBox1.Controls.Add(label3);
             groupBox1.Controls.Add(checkedList_DongTien);
@@ -260,15 +275,6 @@
             txtTienNo.Size = new Size(286, 31);
             txtTienNo.TabIndex = 36;
             // 
-            // btnLichSu
-            // 
-            btnLichSu.Location = new Point(1098, 143);
-            btnLichSu.Name = "btnLichSu";
-            btnLichSu.Size = new Size(188, 41);
-            btnLichSu.TabIndex = 35;
-            btnLichSu.Text = "Lịch sử đóng tiền";
-            btnLichSu.UseVisualStyleBackColor = true;
-            // 
             // btnXacnhan
             // 
             btnXacnhan.Location = new Point(1098, 93);
@@ -277,6 +283,7 @@
             btnXacnhan.TabIndex = 34;
             btnXacnhan.Text = "Xác nhận đóng tiền";
             btnXacnhan.UseVisualStyleBackColor = true;
+            btnXacnhan.Click += btnXacnhan_Click;
             // 
             // label3
             // 
@@ -385,16 +392,16 @@
         private Label label10;
         private Label label3;
         private CheckedListBox checkedList_DongTien;
-        private Button btnLichSu;
         private Button btnXacnhan;
         private Label label4;
         private TextBox txtTienNo;
+        private CheckBox checkSVno;
         private DataGridViewTextBoxColumn MSSV;
         private DataGridViewTextBoxColumn HoTen;
         private DataGridViewTextBoxColumn Lop;
         private DataGridViewTextBoxColumn SDT;
         private DataGridViewTextBoxColumn NgayVao;
         private DataGridViewTextBoxColumn MaPhong;
-        private CheckBox checkSVno;
+        private DataGridViewTextBoxColumn TrangThaiTienPhong;
     }
 }

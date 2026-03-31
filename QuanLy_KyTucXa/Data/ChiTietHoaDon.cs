@@ -11,15 +11,15 @@ namespace QuanLy_KyTucXa.Data
         public int MaChiTiet { get; set; }
 
         // Liên kết về Hóa Đơn cha
-        public int MaHoaDon { get; set; }
+        public string MaHoaDon { get; set; }
         [ForeignKey("MaHoaDon")]
         public virtual HoaDon HoaDon { get; set; }
 
         // Tên dịch vụ (Ví dụ: "Tiền Phòng", "Tiền Điện", "Tiền Nước", "Vệ sinh")
         [StringLength(100)]
         public string TenDichVu { get; set; }
-
-        // Số lượng dùng (Ví dụ: 30 kwh điện, 1 tháng phòng...)
+        //Tiền điện nước
+        
         public int SoLuong { get; set; }
 
         // Đơn vị tính (Ví dụ: "kwh", "khối", "tháng")

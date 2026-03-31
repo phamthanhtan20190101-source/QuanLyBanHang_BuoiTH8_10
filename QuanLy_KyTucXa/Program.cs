@@ -14,9 +14,10 @@ namespace QuanLy_KyTucXa
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new frmToaNha());
-            Application.Run(new frmThemSinhVien());
-            Application.Run(new CapNhatDongTien());
+            Application.Run(new frmMain());
+            //Application.Run(new frmToaNha());
+            //Application.Run(new frmThemSinhVien());
+            //Application.Run(new CapNhatDongTien());
         }
     }
 }

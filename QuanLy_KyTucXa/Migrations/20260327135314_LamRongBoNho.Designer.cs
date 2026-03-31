@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QuanLy_KyTucXa.Data;
 
@@ -11,9 +12,11 @@ using QuanLy_KyTucXa.Data;
 namespace QuanLy_KyTucXa.Migrations
 {
     [DbContext(typeof(QLKTXDbContext))]
-    partial class QLKTXDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260327135314_LamRongBoNho")]
+    partial class LamRongBoNho
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,7 +60,7 @@ namespace QuanLy_KyTucXa.Migrations
 
                     b.HasIndex("MaHoaDon");
 
-                    b.ToTable("ChiTietHoaDons");
+                    b.ToTable("ChiTietHoaDon");
                 });
 
             modelBuilder.Entity("QuanLy_KyTucXa.Data.HoaDon", b =>
@@ -96,7 +99,7 @@ namespace QuanLy_KyTucXa.Migrations
 
                     b.HasIndex("MaQuanLy");
 
-                    b.ToTable("HoaDons");
+                    b.ToTable("HoaDon");
                 });
 
             modelBuilder.Entity("QuanLy_KyTucXa.Data.LichSuDongTien", b =>

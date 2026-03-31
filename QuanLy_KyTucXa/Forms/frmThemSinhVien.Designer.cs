@@ -28,12 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             dataGridView = new DataGridView();
-            btnThoat = new Button();
+            MSSV = new DataGridViewTextBoxColumn();
+            HoTen = new DataGridViewTextBoxColumn();
+            Lop = new DataGridViewTextBoxColumn();
+            QueQuan = new DataGridViewTextBoxColumn();
+            SDT = new DataGridViewTextBoxColumn();
+            NgaySinh = new DataGridViewTextBoxColumn();
+            GioiTinh = new DataGridViewTextBoxColumn();
+            NgayVao = new DataGridViewTextBoxColumn();
+            MaPhong = new DataGridViewTextBoxColumn();
             groupBox2 = new GroupBox();
             groupBox1 = new GroupBox();
+            btnXuat = new Button();
+            btnNhap = new Button();
             datengayvao = new DateTimePicker();
             datengaysinh = new DateTimePicker();
             cobgioitinh = new ComboBox();
@@ -50,7 +60,6 @@
             label4 = new Label();
             label3 = new Label();
             label2 = new Label();
-            btndangxuat = new Button();
             btnHuyBo = new Button();
             btnLuu = new Button();
             btnXoa = new Button();
@@ -58,15 +67,6 @@
             btnThem = new Button();
             label1 = new Label();
             txtmssv = new TextBox();
-            MSSV = new DataGridViewTextBoxColumn();
-            HoTen = new DataGridViewTextBoxColumn();
-            Lop = new DataGridViewTextBoxColumn();
-            QueQuan = new DataGridViewTextBoxColumn();
-            SDT = new DataGridViewTextBoxColumn();
-            NgaySinh = new DataGridViewTextBoxColumn();
-            GioiTinh = new DataGridViewTextBoxColumn();
-            NgayVao = new DataGridViewTextBoxColumn();
-            MaPhong = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             groupBox2.SuspendLayout();
             groupBox1.SuspendLayout();
@@ -88,15 +88,72 @@
             dataGridView.TabIndex = 0;
             dataGridView.CellClick += dataGridView_CellClick;
             // 
-            // btnThoat
+            // MSSV
             // 
-            btnThoat.Location = new Point(1023, 240);
-            btnThoat.Name = "btnThoat";
-            btnThoat.Size = new Size(120, 41);
-            btnThoat.TabIndex = 3;
-            btnThoat.Text = "Thoát";
-            btnThoat.UseVisualStyleBackColor = true;
-            btnThoat.Click += btnThoat_Click;
+            MSSV.DataPropertyName = "MSSV";
+            MSSV.HeaderText = "Mã Số Sinh Viên";
+            MSSV.MinimumWidth = 8;
+            MSSV.Name = "MSSV";
+            // 
+            // HoTen
+            // 
+            HoTen.DataPropertyName = "HoTen";
+            HoTen.HeaderText = "Họ Tên";
+            HoTen.MinimumWidth = 8;
+            HoTen.Name = "HoTen";
+            // 
+            // Lop
+            // 
+            Lop.DataPropertyName = "Lop";
+            Lop.HeaderText = "Lớp";
+            Lop.MinimumWidth = 8;
+            Lop.Name = "Lop";
+            // 
+            // QueQuan
+            // 
+            QueQuan.DataPropertyName = "QueQuan";
+            QueQuan.HeaderText = "Quê Quán";
+            QueQuan.MinimumWidth = 8;
+            QueQuan.Name = "QueQuan";
+            // 
+            // SDT
+            // 
+            SDT.DataPropertyName = "SDT";
+            SDT.HeaderText = "Số Điện Thoại";
+            SDT.MinimumWidth = 8;
+            SDT.Name = "SDT";
+            // 
+            // NgaySinh
+            // 
+            NgaySinh.DataPropertyName = "NgaySinh";
+            dataGridViewCellStyle3.Format = "dd/MM/yyyy";
+            NgaySinh.DefaultCellStyle = dataGridViewCellStyle3;
+            NgaySinh.HeaderText = "Ngày Sinh";
+            NgaySinh.MinimumWidth = 8;
+            NgaySinh.Name = "NgaySinh";
+            // 
+            // GioiTinh
+            // 
+            GioiTinh.DataPropertyName = "GioiTinh";
+            GioiTinh.HeaderText = "Giới Tính";
+            GioiTinh.MinimumWidth = 8;
+            GioiTinh.Name = "GioiTinh";
+            // 
+            // NgayVao
+            // 
+            NgayVao.DataPropertyName = "NgayVao";
+            dataGridViewCellStyle4.Format = "dd/MM/yyyy";
+            NgayVao.DefaultCellStyle = dataGridViewCellStyle4;
+            NgayVao.HeaderText = "Ngày Vào";
+            NgayVao.MinimumWidth = 8;
+            NgayVao.Name = "NgayVao";
+            // 
+            // MaPhong
+            // 
+            MaPhong.DataPropertyName = "MaPhong";
+            MaPhong.HeaderText = "Mã Phòng";
+            MaPhong.MinimumWidth = 8;
+            MaPhong.Name = "MaPhong";
             // 
             // groupBox2
             // 
@@ -110,6 +167,8 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(btnXuat);
+            groupBox1.Controls.Add(btnNhap);
             groupBox1.Controls.Add(datengayvao);
             groupBox1.Controls.Add(datengaysinh);
             groupBox1.Controls.Add(cobgioitinh);
@@ -126,8 +185,6 @@
             groupBox1.Controls.Add(label4);
             groupBox1.Controls.Add(label3);
             groupBox1.Controls.Add(label2);
-            groupBox1.Controls.Add(btndangxuat);
-            groupBox1.Controls.Add(btnThoat);
             groupBox1.Controls.Add(btnHuyBo);
             groupBox1.Controls.Add(btnLuu);
             groupBox1.Controls.Add(btnXoa);
@@ -141,6 +198,26 @@
             groupBox1.TabIndex = 6;
             groupBox1.TabStop = false;
             groupBox1.Text = "Thông tin sinh viên";
+            // 
+            // btnXuat
+            // 
+            btnXuat.Location = new Point(1046, 240);
+            btnXuat.Name = "btnXuat";
+            btnXuat.Size = new Size(236, 41);
+            btnXuat.TabIndex = 23;
+            btnXuat.Text = "Xuất file Excel";
+            btnXuat.UseVisualStyleBackColor = true;
+            btnXuat.Click += btnXuat_Click;
+            // 
+            // btnNhap
+            // 
+            btnNhap.Location = new Point(786, 240);
+            btnNhap.Name = "btnNhap";
+            btnNhap.Size = new Size(236, 41);
+            btnNhap.TabIndex = 22;
+            btnNhap.Text = "Nhập file Excel";
+            btnNhap.UseVisualStyleBackColor = true;
+            btnNhap.Click += btnNhap_Click;
             // 
             // datengayvao
             // 
@@ -283,18 +360,9 @@
             label2.TabIndex = 4;
             label2.Text = "Quê quán :";
             // 
-            // btndangxuat
-            // 
-            btndangxuat.Location = new Point(1162, 240);
-            btndangxuat.Name = "btndangxuat";
-            btndangxuat.Size = new Size(120, 41);
-            btndangxuat.TabIndex = 3;
-            btndangxuat.Text = "Đăng Xuất";
-            btndangxuat.UseVisualStyleBackColor = true;
-            // 
             // btnHuyBo
             // 
-            btnHuyBo.Location = new Point(659, 240);
+            btnHuyBo.Location = new Point(584, 240);
             btnHuyBo.Name = "btnHuyBo";
             btnHuyBo.Size = new Size(120, 41);
             btnHuyBo.TabIndex = 3;
@@ -304,7 +372,7 @@
             // 
             // btnLuu
             // 
-            btnLuu.Location = new Point(518, 240);
+            btnLuu.Location = new Point(443, 240);
             btnLuu.Name = "btnLuu";
             btnLuu.Size = new Size(120, 41);
             btnLuu.TabIndex = 3;
@@ -314,7 +382,7 @@
             // 
             // btnXoa
             // 
-            btnXoa.Location = new Point(377, 240);
+            btnXoa.Location = new Point(302, 240);
             btnXoa.Name = "btnXoa";
             btnXoa.Size = new Size(120, 41);
             btnXoa.TabIndex = 3;
@@ -324,7 +392,7 @@
             // 
             // btnSua
             // 
-            btnSua.Location = new Point(234, 240);
+            btnSua.Location = new Point(159, 240);
             btnSua.Name = "btnSua";
             btnSua.Size = new Size(120, 41);
             btnSua.TabIndex = 3;
@@ -334,7 +402,7 @@
             // 
             // btnThem
             // 
-            btnThem.Location = new Point(86, 240);
+            btnThem.Location = new Point(11, 240);
             btnThem.Name = "btnThem";
             btnThem.Size = new Size(120, 41);
             btnThem.TabIndex = 3;
@@ -358,73 +426,6 @@
             txtmssv.Size = new Size(286, 31);
             txtmssv.TabIndex = 2;
             // 
-            // MSSV
-            // 
-            MSSV.DataPropertyName = "MSSV";
-            MSSV.HeaderText = "Mã Số Sinh Viên";
-            MSSV.MinimumWidth = 8;
-            MSSV.Name = "MSSV";
-            // 
-            // HoTen
-            // 
-            HoTen.DataPropertyName = "HoTen";
-            HoTen.HeaderText = "Họ Tên";
-            HoTen.MinimumWidth = 8;
-            HoTen.Name = "HoTen";
-            // 
-            // Lop
-            // 
-            Lop.DataPropertyName = "Lop";
-            Lop.HeaderText = "Lớp";
-            Lop.MinimumWidth = 8;
-            Lop.Name = "Lop";
-            // 
-            // QueQuan
-            // 
-            QueQuan.DataPropertyName = "QueQuan";
-            QueQuan.HeaderText = "Quê Quán";
-            QueQuan.MinimumWidth = 8;
-            QueQuan.Name = "QueQuan";
-            // 
-            // SDT
-            // 
-            SDT.DataPropertyName = "SDT";
-            SDT.HeaderText = "Số Điện Thoại";
-            SDT.MinimumWidth = 8;
-            SDT.Name = "SDT";
-            // 
-            // NgaySinh
-            // 
-            NgaySinh.DataPropertyName = "NgaySinh";
-            dataGridViewCellStyle1.Format = "dd/MM/yyyy";
-            NgaySinh.DefaultCellStyle = dataGridViewCellStyle1;
-            NgaySinh.HeaderText = "Ngày Sinh";
-            NgaySinh.MinimumWidth = 8;
-            NgaySinh.Name = "NgaySinh";
-            // 
-            // GioiTinh
-            // 
-            GioiTinh.DataPropertyName = "GioiTinh";
-            GioiTinh.HeaderText = "Giới Tính";
-            GioiTinh.MinimumWidth = 8;
-            GioiTinh.Name = "GioiTinh";
-            // 
-            // NgayVao
-            // 
-            NgayVao.DataPropertyName = "NgayVao";
-            dataGridViewCellStyle2.Format = "dd/MM/yyyy";
-            NgayVao.DefaultCellStyle = dataGridViewCellStyle2;
-            NgayVao.HeaderText = "Ngày Vào";
-            NgayVao.MinimumWidth = 8;
-            NgayVao.Name = "NgayVao";
-            // 
-            // MaPhong
-            // 
-            MaPhong.DataPropertyName = "MaPhong";
-            MaPhong.HeaderText = "Mã Phòng";
-            MaPhong.MinimumWidth = 8;
-            MaPhong.Name = "MaPhong";
-            // 
             // frmThemSinhVien
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -445,7 +446,6 @@
         #endregion
 
         private DataGridView dataGridView;
-        private Button btnThoat;
         private GroupBox groupBox2;
         private GroupBox groupBox1;
         private Button btnHuyBo;
@@ -471,7 +471,6 @@
         private DateTimePicker datengaysinh;
         private ComboBox cobgioitinh;
         private ComboBox cobmaphong;
-        private Button btndangxuat;
         private DataGridViewTextBoxColumn MSSV;
         private DataGridViewTextBoxColumn HoTen;
         private DataGridViewTextBoxColumn Lop;
@@ -481,5 +480,7 @@
         private DataGridViewTextBoxColumn GioiTinh;
         private DataGridViewTextBoxColumn NgayVao;
         private DataGridViewTextBoxColumn MaPhong;
+        private Button btnXuat;
+        private Button btnNhap;
     }
 }

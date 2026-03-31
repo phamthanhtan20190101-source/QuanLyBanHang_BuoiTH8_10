@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             groupBox1 = new GroupBox();
+            txtmaphong = new TextBox();
+            txtngaysinh = new TextBox();
+            txtngayvao = new TextBox();
+            txtgioitinh = new TextBox();
             label9 = new Label();
             txthoten = new TextBox();
             label8 = new Label();
@@ -43,16 +47,7 @@
             label2 = new Label();
             label1 = new Label();
             txtmssv = new TextBox();
-            groupBox2 = new GroupBox();
-            btnlogout = new Button();
-            btnxemlichsudongtien = new Button();
-            btndoithongtin = new Button();
-            txtngaysinh = new TextBox();
-            txtngayvao = new TextBox();
-            txtgioitinh = new TextBox();
-            txtmaphong = new TextBox();
             groupBox1.SuspendLayout();
-            groupBox2.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox1
@@ -81,6 +76,34 @@
             groupBox1.TabIndex = 7;
             groupBox1.TabStop = false;
             groupBox1.Text = "Thông tin sinh viên";
+            // 
+            // txtmaphong
+            // 
+            txtmaphong.Location = new Point(523, 148);
+            txtmaphong.Name = "txtmaphong";
+            txtmaphong.Size = new Size(286, 31);
+            txtmaphong.TabIndex = 23;
+            // 
+            // txtngaysinh
+            // 
+            txtngaysinh.Location = new Point(947, 96);
+            txtngaysinh.Name = "txtngaysinh";
+            txtngaysinh.Size = new Size(286, 31);
+            txtngaysinh.TabIndex = 22;
+            // 
+            // txtngayvao
+            // 
+            txtngayvao.Location = new Point(947, 151);
+            txtngayvao.Name = "txtngayvao";
+            txtngayvao.Size = new Size(286, 31);
+            txtngayvao.TabIndex = 21;
+            // 
+            // txtgioitinh
+            // 
+            txtgioitinh.Location = new Point(947, 42);
+            txtgioitinh.Name = "txtgioitinh";
+            txtgioitinh.Size = new Size(286, 31);
+            txtgioitinh.TabIndex = 20;
             // 
             // label9
             // 
@@ -198,86 +221,17 @@
             txtmssv.Size = new Size(286, 31);
             txtmssv.TabIndex = 2;
             // 
-            // groupBox2
-            // 
-            groupBox2.Controls.Add(btnlogout);
-            groupBox2.Controls.Add(btnxemlichsudongtien);
-            groupBox2.Controls.Add(btndoithongtin);
-            groupBox2.Location = new Point(23, 253);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(1262, 163);
-            groupBox2.TabIndex = 8;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "Chức năng";
-            // 
-            // btnlogout
-            // 
-            btnlogout.Location = new Point(866, 55);
-            btnlogout.Name = "btnlogout";
-            btnlogout.Size = new Size(367, 49);
-            btnlogout.TabIndex = 2;
-            btnlogout.Text = "Đăng xuất";
-            btnlogout.UseVisualStyleBackColor = true;
-            // 
-            // btnxemlichsudongtien
-            // 
-            btnxemlichsudongtien.Location = new Point(454, 55);
-            btnxemlichsudongtien.Name = "btnxemlichsudongtien";
-            btnxemlichsudongtien.Size = new Size(367, 49);
-            btnxemlichsudongtien.TabIndex = 1;
-            btnxemlichsudongtien.Text = "Xem lịch sử đóng tiền";
-            btnxemlichsudongtien.UseVisualStyleBackColor = true;
-            // 
-            // btndoithongtin
-            // 
-            btndoithongtin.Location = new Point(6, 55);
-            btndoithongtin.Name = "btndoithongtin";
-            btndoithongtin.Size = new Size(367, 49);
-            btndoithongtin.TabIndex = 0;
-            btndoithongtin.Text = "Đổi thông tin cá nhân";
-            btndoithongtin.UseVisualStyleBackColor = true;
-            // 
-            // txtngaysinh
-            // 
-            txtngaysinh.Location = new Point(947, 96);
-            txtngaysinh.Name = "txtngaysinh";
-            txtngaysinh.Size = new Size(286, 31);
-            txtngaysinh.TabIndex = 22;
-            // 
-            // txtngayvao
-            // 
-            txtngayvao.Location = new Point(947, 151);
-            txtngayvao.Name = "txtngayvao";
-            txtngayvao.Size = new Size(286, 31);
-            txtngayvao.TabIndex = 21;
-            // 
-            // txtgioitinh
-            // 
-            txtgioitinh.Location = new Point(947, 42);
-            txtgioitinh.Name = "txtgioitinh";
-            txtgioitinh.Size = new Size(286, 31);
-            txtgioitinh.TabIndex = 20;
-            // 
-            // txtmaphong
-            // 
-            txtmaphong.Location = new Point(523, 148);
-            txtmaphong.Name = "txtmaphong";
-            txtmaphong.Size = new Size(286, 31);
-            txtmaphong.TabIndex = 23;
-            // 
             // frmSinhVien
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1332, 443);
-            Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Name = "frmSinhVien";
             Text = "frmSinhVien";
             Load += frmSinhVien_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
-            groupBox2.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -298,10 +252,6 @@
         private Label label2;
         private Label label1;
         private TextBox txtmssv;
-        private GroupBox groupBox2;
-        private Button btnlogout;
-        private Button btnxemlichsudongtien;
-        private Button btndoithongtin;
         private TextBox txtngaysinh;
         private TextBox txtngayvao;
         private TextBox txtgioitinh;
