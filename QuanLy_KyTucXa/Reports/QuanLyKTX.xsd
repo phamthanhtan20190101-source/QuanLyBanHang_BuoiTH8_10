@@ -9,18 +9,31 @@
       </DataSource>
     </xs:appinfo>
   </xs:annotation>
-  <xs:element name="QuanLyKTX" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_UserDSName="QuanLyKTX" msprop:Generator_DataSetName="QuanLyKTX">
+  <xs:element name="QuanLyKTX" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="QuanLyKTX" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="QuanLyKTX">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="LichSuDongTien" msprop:Generator_RowEvHandlerName="LichSuDongTienRowChangeEventHandler" msprop:Generator_RowDeletedName="LichSuDongTienRowDeleted" msprop:Generator_RowDeletingName="LichSuDongTienRowDeleting" msprop:Generator_RowEvArgName="LichSuDongTienRowChangeEvent" msprop:Generator_TablePropName="LichSuDongTien" msprop:Generator_RowChangedName="LichSuDongTienRowChanged" msprop:Generator_RowChangingName="LichSuDongTienRowChanging" msprop:Generator_TableClassName="LichSuDongTienDataTable" msprop:Generator_RowClassName="LichSuDongTienRow" msprop:Generator_TableVarName="tableLichSuDongTien" msprop:Generator_UserTableName="LichSuDongTien">
+        <xs:element name="LichSuDongTien" msprop:Generator_RowClassName="LichSuDongTienRow" msprop:Generator_RowEvHandlerName="LichSuDongTienRowChangeEventHandler" msprop:Generator_RowDeletedName="LichSuDongTienRowDeleted" msprop:Generator_RowDeletingName="LichSuDongTienRowDeleting" msprop:Generator_RowEvArgName="LichSuDongTienRowChangeEvent" msprop:Generator_TablePropName="LichSuDongTien" msprop:Generator_RowChangedName="LichSuDongTienRowChanged" msprop:Generator_UserTableName="LichSuDongTien" msprop:Generator_RowChangingName="LichSuDongTienRowChanging" msprop:Generator_TableClassName="LichSuDongTienDataTable" msprop:Generator_TableVarName="tableLichSuDongTien">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="MaThanhToan" msprop:Generator_ColumnPropNameInRow="MaThanhToan" msprop:Generator_ColumnPropNameInTable="MaThanhToanColumn" msprop:Generator_ColumnVarNameInTable="columnMaThanhToan" msprop:Generator_UserColumnName="MaThanhToan" type="xs:string" />
+              <xs:element name="MaThanhToan" msprop:Generator_UserColumnName="MaThanhToan" msprop:Generator_ColumnPropNameInTable="MaThanhToanColumn" msprop:Generator_ColumnPropNameInRow="MaThanhToan" msprop:Generator_ColumnVarNameInTable="columnMaThanhToan" type="xs:string" />
+              <xs:element name="MSSV" msprop:Generator_UserColumnName="MSSV" msprop:Generator_ColumnPropNameInTable="MSSVColumn" msprop:Generator_ColumnPropNameInRow="MSSV" msprop:Generator_ColumnVarNameInTable="columnMSSV" type="xs:string" minOccurs="0" />
+              <xs:element name="ThangDongTien" msprop:Generator_UserColumnName="ThangDongTien" msprop:Generator_ColumnPropNameInTable="ThangDongTienColumn" msprop:Generator_ColumnPropNameInRow="ThangDongTien" msprop:Generator_ColumnVarNameInTable="columnThangDongTien" type="xs:int" minOccurs="0" />
+              <xs:element name="NamDongTien" msprop:Generator_UserColumnName="NamDongTien" msprop:Generator_ColumnPropNameInTable="NamDongTienColumn" msprop:Generator_ColumnPropNameInRow="NamDongTien" msprop:Generator_ColumnVarNameInTable="columnNamDongTien" type="xs:int" minOccurs="0" />
+              <xs:element name="SoTien" msprop:Generator_UserColumnName="SoTien" msprop:Generator_ColumnPropNameInTable="SoTienColumn" msprop:Generator_ColumnPropNameInRow="SoTien" msprop:Generator_ColumnVarNameInTable="columnSoTien" type="xs:decimal" minOccurs="0" />
+              <xs:element name="NgayDong" msprop:Generator_UserColumnName="NgayDong" msprop:Generator_ColumnPropNameInTable="NgayDongColumn" msprop:Generator_ColumnPropNameInRow="NgayDong" msprop:Generator_ColumnVarNameInTable="columnNgayDong" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="LichSuHoaDon" msprop:Generator_RowEvHandlerName="LichSuHoaDonRowChangeEventHandler" msprop:Generator_RowDeletedName="LichSuHoaDonRowDeleted" msprop:Generator_RowDeletingName="LichSuHoaDonRowDeleting" msprop:Generator_RowEvArgName="LichSuHoaDonRowChangeEvent" msprop:Generator_TablePropName="LichSuHoaDon" msprop:Generator_RowChangedName="LichSuHoaDonRowChanged" msprop:Generator_RowChangingName="LichSuHoaDonRowChanging" msprop:Generator_TableClassName="LichSuHoaDonDataTable" msprop:Generator_RowClassName="LichSuHoaDonRow" msprop:Generator_TableVarName="tableLichSuHoaDon" msprop:Generator_UserTableName="LichSuHoaDon">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="MaHoaDon" msprop:Generator_ColumnPropNameInRow="MaHoaDon" msprop:Generator_ColumnPropNameInTable="MaHoaDonColumn" msprop:Generator_ColumnVarNameInTable="columnMaHoaDon" msprop:Generator_UserColumnName="MaHoaDon" type="xs:string" />
               <xs:element name="MSSV" msprop:Generator_ColumnPropNameInRow="MSSV" msprop:Generator_ColumnPropNameInTable="MSSVColumn" msprop:Generator_ColumnVarNameInTable="columnMSSV" msprop:Generator_UserColumnName="MSSV" type="xs:string" minOccurs="0" />
-              <xs:element name="ThangDongTien" msprop:Generator_ColumnPropNameInRow="ThangDongTien" msprop:Generator_ColumnPropNameInTable="ThangDongTienColumn" msprop:Generator_ColumnVarNameInTable="columnThangDongTien" msprop:Generator_UserColumnName="ThangDongTien" type="xs:int" minOccurs="0" />
-              <xs:element name="NamDongTien" msprop:Generator_ColumnPropNameInRow="NamDongTien" msprop:Generator_ColumnPropNameInTable="NamDongTienColumn" msprop:Generator_ColumnVarNameInTable="columnNamDongTien" msprop:Generator_UserColumnName="NamDongTien" type="xs:int" minOccurs="0" />
-              <xs:element name="SoTien" msprop:Generator_ColumnPropNameInRow="SoTien" msprop:Generator_ColumnPropNameInTable="SoTienColumn" msprop:Generator_ColumnVarNameInTable="columnSoTien" msprop:Generator_UserColumnName="SoTien" type="xs:decimal" minOccurs="0" />
-              <xs:element name="NgayDong" msprop:Generator_ColumnPropNameInRow="NgayDong" msprop:Generator_ColumnPropNameInTable="NgayDongColumn" msprop:Generator_ColumnVarNameInTable="columnNgayDong" msprop:Generator_UserColumnName="NgayDong" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="MaQuanLy" msprop:Generator_ColumnPropNameInRow="MaQuanLy" msprop:Generator_ColumnPropNameInTable="MaQuanLyColumn" msprop:Generator_ColumnVarNameInTable="columnMaQuanLy" msprop:Generator_UserColumnName="MaQuanLy" type="xs:string" minOccurs="0" />
+              <xs:element name="NgayTao" msprop:Generator_ColumnPropNameInRow="NgayTao" msprop:Generator_ColumnPropNameInTable="NgayTaoColumn" msprop:Generator_ColumnVarNameInTable="columnNgayTao" msprop:Generator_UserColumnName="NgayTao" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Thang" msprop:Generator_ColumnPropNameInRow="Thang" msprop:Generator_ColumnPropNameInTable="ThangColumn" msprop:Generator_ColumnVarNameInTable="columnThang" msprop:Generator_UserColumnName="Thang" type="xs:string" minOccurs="0" />
+              <xs:element name="TongTien" msprop:Generator_ColumnPropNameInRow="TongTien" msprop:Generator_ColumnPropNameInTable="TongTienColumn" msprop:Generator_ColumnVarNameInTable="columnTongTien" msprop:Generator_UserColumnName="TongTien" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TrangThai" msprop:Generator_ColumnPropNameInRow="TrangThai" msprop:Generator_ColumnPropNameInTable="TrangThaiColumn" msprop:Generator_ColumnVarNameInTable="columnTrangThai" msprop:Generator_UserColumnName="TrangThai" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -29,6 +42,10 @@
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:LichSuDongTien" />
       <xs:field xpath="mstns:MaThanhToan" />
+    </xs:unique>
+    <xs:unique name="LichSuHoaDon_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:LichSuHoaDon" />
+      <xs:field xpath="mstns:MaHoaDon" />
     </xs:unique>
   </xs:element>
 </xs:schema>

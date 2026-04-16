@@ -19,7 +19,31 @@ namespace QuanLy_KyTucXa.Forms
 
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.OK;
+            if (string.IsNullOrWhiteSpace(txtTenDangNhap.Text) || string.IsNullOrWhiteSpace(txtMatKhau.Text))
+            {
+                MessageBox.Show("Vui lòng nhập đầy đủ tài khoản và mật khẩu!");
+                return;
+            }
+
+            using (var db = new QuanLy_KyTucXa.Data.QLKTXDbContext())
+            {
+                // Kiểm tra tài khoản trong CSDL
+                var taiKhoan = db.TaiKhoans.FirstOrDefault(tk => tk.TenTaiKhoan == txtTenDangNhap.Text && tk.MatKhau == txtMatKhau.Text);
+
+                if (taiKhoan != null)
+                {
+                    // Lưu thông tin vào biến static của frmMain để các Form khác dùng chung
+                    frmMain.MaNguoiDungHienTai = taiKhoan.TenTaiKhoan;
+                    frmMain.QuyenHienTai = taiKhoan.Quyen;
+
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Tài khoản hoặc mật khẩu không chính xác!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void btnHuyBo_Click(object sender, EventArgs e)
@@ -48,6 +72,11 @@ namespace QuanLy_KyTucXa.Forms
                 // Khi bỏ tick: Dùng lại dấu sao '*' để che mật khẩu lại
                 txtMatKhau.PasswordChar = '*';
             }
+        }
+
+        private void frmDangNhap_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -31,6 +31,7 @@ namespace QuanLy_KyTucXa.Forms
             try
             {
                 // Tìm sinh viên trong Database dựa vào MSSV
+                mssvDangNhap = frmMain.MaNguoiDungHienTai;
                 var sv = context.SinhViens.FirstOrDefault(s => s.MSSV == mssvDangNhap);
 
                 if (sv != null)

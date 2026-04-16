@@ -20,6 +20,8 @@ namespace QuanLy_KyTucXa.Data
 
         public DbSet<LichSuDongTien> LichSuDongTiens { get; set; }
 
+        public DbSet<TienNo> TienNos { get; set; }
+
         // 2. Cấu hình chuỗi kết nối
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

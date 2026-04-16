@@ -132,6 +132,7 @@
             Name = "frmDangNhap";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "frmDangNhap";
+            Load += frmDangNhap_Load;
             ResumeLayout(false);
             PerformLayout();
         }
