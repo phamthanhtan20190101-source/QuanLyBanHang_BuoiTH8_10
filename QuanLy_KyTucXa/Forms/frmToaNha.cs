@@ -30,14 +30,16 @@ namespace QuanLy_KyTucXa.Forms
 
         private void BatTatChucNang(bool moKhoa)
         {
-            // Nhóm nhập liệu
-            txtMaPhong.Enabled = moKhoa;
+            txtMaPhong.Enabled = true;
+
+            // Các ô khác vẫn giữ nguyên theo biến moKhoa
             cobToaNha.Enabled = moKhoa;
             cobLoaiPhong.Enabled = moKhoa;
+            txtGiaPhong.Enabled = false; // Giá tự động nhảy nên luôn khóa
 
             // Nhóm nút Lưu/Hủy
             btnLuu.Enabled = moKhoa;
-            btnHuyBo.Enabled = moKhoa;
+            btnHuyBo.Enabled = true;
 
             // Nhóm nút Chức năng chính
             btnThem.Enabled = !moKhoa;
@@ -196,7 +198,7 @@ namespace QuanLy_KyTucXa.Forms
 
                     // Gán các giá trị mặc định cho phòng mới
                     p.TrangThai = "Trống";
-                    p.TienDienNuoc = 100000;
+                    p.TienDienNuoc = 50000;
                     p.SoLuongDangO = 0;
 
                     // Thêm vào Context (chưa lưu)
@@ -227,16 +229,18 @@ namespace QuanLy_KyTucXa.Forms
                 if (cobLoaiPhong.Text.Contains("4"))
                 {
                     sucChua = 4;
-                    giaTien = 1200000; // Giá phòng 4
+                    // Giá mặc định: 120.000đ / 1 người
+                    giaTien = 120000;
                 }
                 else if (cobLoaiPhong.Text.Contains("6"))
                 {
                     sucChua = 6;
-                    giaTien = 800000;  // Giá phòng 6
+                    // Giá mặc định: 80.000đ / 1 người
+                    giaTien = 80000;
                 }
 
                 p.LoaiPhong = sucChua;
-                p.Gia = giaTien; // Cập nhật giá phòng
+                p.Gia = giaTien;
 
                 // Lưu thay đổi xuống CSDL
                 context.SaveChanges();
@@ -494,6 +498,61 @@ namespace QuanLy_KyTucXa.Forms
                 {
                     MessageBox.Show("Lỗi khi xuất file: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+        }
+
+        private void btnTimKiem_Click(object sender, EventArgs e)
+        {
+            string tuKhoa = txtMaPhong.Text.Trim().ToLower();
+
+            if (string.IsNullOrEmpty(tuKhoa))
+            {
+                // Nếu để trống ô Mã phòng mà bấm Tìm kiếm -> Tải lại toàn bộ dữ liệu
+                LoadDataToAllGrids();
+                return;
+            }
+
+            try
+            {
+                // Lấy lại danh sách gốc có ghép chuỗi Số lượng
+                var listPhong = context.Phongs
+                    .Select(p => new
+                    {
+                        MaPhong = p.MaPhong,
+                        Gia = p.Gia,
+                        MaToaNha = p.MaToaNha,
+                        LoaiPhong = p.LoaiPhong,
+                        SoLuongHienThi = context.SinhViens.Count(s => s.MaPhong == p.MaPhong).ToString() + "/" + p.LoaiPhong.ToString()
+                    })
+                    .Where(p => p.MaPhong.ToLower().Contains(tuKhoa)) // Lọc theo từ khóa
+                    .ToList();
+
+                // Đổ dữ liệu đã lọc vào 4 lưới
+                dataGridViewToaA.DataSource = listPhong.Where(p => p.MaToaNha == "A").ToList();
+                dataGridViewToaB.DataSource = listPhong.Where(p => p.MaToaNha == "B").ToList();
+                dataGridViewToaC.DataSource = listPhong.Where(p => p.MaToaNha == "C").ToList();
+                dataGridViewToaD.DataSource = listPhong.Where(p => p.MaToaNha == "D").ToList();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi tìm kiếm: " + ex.Message);
+            }
+        }
+
+        private void cobLoaiPhong_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Kiểm tra xem người dùng chọn loại phòng nào để tự động điền giá
+            if (cobLoaiPhong.Text.Contains("4"))
+            {
+                txtGiaPhong.Text = "120000";
+            }
+            else if (cobLoaiPhong.Text.Contains("6"))
+            {
+                txtGiaPhong.Text = "80000";
+            }
+            else
+            {
+                txtGiaPhong.Text = ""; // Nếu chưa chọn hoặc chọn sai thì xóa trắng ô giá
             }
         }
     }

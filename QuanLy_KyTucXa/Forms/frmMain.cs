@@ -23,7 +23,8 @@ namespace QuanLy_KyTucXa.Forms
         public frmMain()
         {
             InitializeComponent();
-            ChuaDangNhap(); // Khóa hệ thống khi vừa mở phần mềm
+            ChuaDangNhap();
+            DongBoMatKhauCu();// Khóa hệ thống khi vừa mở phần mềm
         }
 
         // --- HÀM 1: TRẠNG THÁI CHƯA ĐĂNG NHẬP (XÓA BỎ DƯ THỪA) ---
@@ -181,6 +182,32 @@ namespace QuanLy_KyTucXa.Forms
                 formThongKeHoaDon.Show();
             }
             else formThongKeHoaDon.Activate();
+        }
+
+        private void DongBoMatKhauCu()
+        {
+            try
+            {
+                var danhSachTaiKhoan = context.TaiKhoans.ToList();
+                int soTaiKhoanDuocCapNhat = 0;
+
+                foreach (var tk in danhSachTaiKhoan)
+                {
+                    // Nếu độ dài < 64 tức là mật khẩu thường chưa được băm
+                    if (tk.MatKhau != null && tk.MatKhau.Length < 64)
+                    {
+                        tk.MatKhau = MaHoaHelper.HashPassword(tk.MatKhau);
+                        soTaiKhoanDuocCapNhat++;
+                    }
+                }
+
+                if (soTaiKhoanDuocCapNhat > 0)
+                {
+                    context.SaveChanges();
+                    MessageBox.Show($"Đã nâng cấp bảo mật thành công cho {soTaiKhoanDuocCapNhat} tài khoản cũ!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex) { }
         }
     }
 }

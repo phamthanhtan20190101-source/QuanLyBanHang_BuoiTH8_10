@@ -45,16 +45,17 @@ namespace QuanLy_KyTucXa.Forms
 
                 if (taiKhoan != null)
                 {
-                    // 4. Kiểm tra mật khẩu cũ gõ vào có đúng không
-                    if (taiKhoan.MatKhau != txtMatKhauCu.Text)
+                    // KIỂM TRA MẬT KHẨU CŨ (Băm cái cũ gõ vào để so sánh)
+                    string mkCuDaBam = MaHoaHelper.HashPassword(txtMatKhauCu.Text);
+                    if (taiKhoan.MatKhau != mkCuDaBam)
                     {
                         MessageBox.Show("Mật khẩu cũ không chính xác!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         txtMatKhauCu.Focus();
                         return;
                     }
 
-                    // 5. Cập nhật mật khẩu mới
-                    taiKhoan.MatKhau = txtMatKhauMoi.Text;
+                    // LƯU MẬT KHẨU MỚI (Băm cái mới rồi mới lưu)
+                    taiKhoan.MatKhau = MaHoaHelper.HashPassword(txtMatKhauMoi.Text);
                     context.SaveChanges();
 
                     MessageBox.Show("Thay đổi mật khẩu thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);

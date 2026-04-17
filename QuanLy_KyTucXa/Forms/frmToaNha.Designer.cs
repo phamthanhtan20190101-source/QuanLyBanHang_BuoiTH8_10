@@ -358,6 +358,7 @@
             // 
             txtGiaPhong.Location = new Point(143, 252);
             txtGiaPhong.Name = "txtGiaPhong";
+            txtGiaPhong.ReadOnly = true;
             txtGiaPhong.Size = new Size(182, 31);
             txtGiaPhong.TabIndex = 14;
             // 
@@ -380,6 +381,7 @@
             cobLoaiPhong.Size = new Size(182, 33);
             cobLoaiPhong.TabIndex = 12;
             cobLoaiPhong.Text = "Chọn loại phòng";
+            cobLoaiPhong.SelectedIndexChanged += cobLoaiPhong_SelectedIndexChanged;
             // 
             // cobToaNha
             // 
@@ -440,6 +442,7 @@
             btnTimKiem.TabIndex = 9;
             btnTimKiem.Text = "Tìm Kiếm";
             btnTimKiem.UseVisualStyleBackColor = true;
+            btnTimKiem.Click += btnTimKiem_Click;
             // 
             // btnHuyBo
             // 

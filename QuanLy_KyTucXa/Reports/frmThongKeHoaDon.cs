@@ -23,6 +23,7 @@ namespace QuanLy_KyTucXa.Reports
         public frmThongKeHoaDon()
         {
             InitializeComponent();
+            this.WindowState = FormWindowState.Maximized;
         }
 
         private void frmThongKeHoaDon_Load(object sender, EventArgs e)

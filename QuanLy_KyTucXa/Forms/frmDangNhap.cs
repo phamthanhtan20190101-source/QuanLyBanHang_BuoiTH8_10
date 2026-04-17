@@ -27,8 +27,12 @@ namespace QuanLy_KyTucXa.Forms
 
             using (var db = new QuanLy_KyTucXa.Data.QLKTXDbContext())
             {
-                // Kiểm tra tài khoản trong CSDL
-                var taiKhoan = db.TaiKhoans.FirstOrDefault(tk => tk.TenTaiKhoan == txtTenDangNhap.Text && tk.MatKhau == txtMatKhau.Text);
+                // --- PHẦN MỚI THÊM: BĂM MẬT KHẨU TRƯỚC KHI TÌM KIẾM ---
+                string matKhauGoVao = MaHoaHelper.HashPassword(txtMatKhau.Text);
+
+                // Kiểm tra tài khoản trong CSDL (so sánh với mật khẩu ĐÃ BĂM)
+                var taiKhoan = db.TaiKhoans.FirstOrDefault(tk => tk.TenTaiKhoan == txtTenDangNhap.Text && tk.MatKhau == matKhauGoVao);
+                // -----------------------------------------------------
 
                 if (taiKhoan != null)
                 {

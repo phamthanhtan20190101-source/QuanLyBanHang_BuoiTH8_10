@@ -32,16 +32,7 @@ namespace QuanLy_KyTucXa.Forms
             listPhong.Insert(0, "Tất cả các phòng");
             cobtimkiem.DataSource = listPhong;
 
-            var svCu = context.SinhViens.Where(s => s.TrangThaiTienPhong == "Chưa đóng" && s.TienNo == 0).ToList();
-            if (svCu.Count > 0)
-            {
-                foreach (var s in svCu)
-                {
-                    var p = context.Phongs.Find(s.MaPhong);
-                    if (p != null) s.TienNo = p.Gia + p.TienDienNuoc;
-                }
-                context.SaveChanges();
-            }
+           
 
             int thangHienTai = DateTime.Now.Month;
             bool coPhatSinhNo = false;
@@ -285,7 +276,7 @@ namespace QuanLy_KyTucXa.Forms
                     HoaDon hd = new HoaDon();
                     hd.MaHoaDon = $"HD_{baSoCuoi}_{thang:D2}"; // Định dạng: HD_3SốCuối_Tháng
                     hd.MSSV = mssv;
-                    hd.MaQuanLy = "QL001"; // TODO: Tạm gán cứng, cần truyền từ Form Main sang
+                    hd.MaQuanLy = frmMain.MaNguoiDungHienTai; // Hệ thống sẽ tự động lấy mã của người đang đăng nhập
                     hd.NgayTao = DateTime.Now;
                     hd.Thang = thang;
                     hd.Nam = namHienTai;
@@ -323,14 +314,36 @@ namespace QuanLy_KyTucXa.Forms
                 context.SaveChanges();
                 MessageBox.Show("Xác nhận thanh toán và xuất hóa đơn thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                if (MessageBox.Show("Bạn có muốn in hóa đơn PDF không?", "In hóa đơn", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    // Lấy thông tin phòng để in
+                    var phong = context.Phongs.Find(sv.MaPhong);
+                    string tenP = (phong != null) ? phong.MaPhong : "N/A";
+
+                    // Vì bạn có thể đóng nhiều tháng, code này sẽ lấy hóa đơn cuối cùng vừa tạo để in
+                    // Hoặc bạn có thể sửa logic để in từng cái tùy ý
+                    var hoaDonVuaTao = context.HoaDons
+                                        .Where(h => h.MSSV == sv.MSSV)
+                                        .OrderByDescending(h => h.NgayTao)
+                                        .FirstOrDefault();
+
+                    if (hoaDonVuaTao != null)
+                    {
+                        PdfHelper.XuatHoaDonPDF(hoaDonVuaTao, sv, tenP);
+                    }
+                }
+
                 // 6. LÀM SẠCH GIAO DIỆN SAU KHI LƯU
                 textsotiennhan.Clear();
                 for (int i = 0; i < checkedList_DongTien.Items.Count; i++)
                 {
-                    checkedList_DongTien.SetItemChecked(i, false); // Bỏ tick tất cả các tháng
+                    checkedList_DongTien.SetItemChecked(i, false);
                 }
 
-                LoadData(); // Load lại lưới để cập nhật trạng thái "Đã đóng" lập tức
+                // THÊM DÒNG NÀY ĐỂ CẬP NHẬT LẠI TIỀN NỢ TRÊN MÀN HÌNH NGAY LẬP TỨC:
+                txtTienNo.Text = sv.TienNo.ToString("N0");
+
+                LoadData();
             }
             catch (Exception ex)
             {

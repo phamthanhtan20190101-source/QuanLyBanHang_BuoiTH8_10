@@ -276,7 +276,8 @@ namespace QuanLy_KyTucXa.Forms
 
                     TaiKhoan tk = new TaiKhoan();
                     tk.TenTaiKhoan = txtmssv.Text;
-                    tk.MatKhau = matKhauTuDong;
+                    // Phải gọi MaHoaHelper
+                    tk.MatKhau = MaHoaHelper.HashPassword(matKhauTuDong);
                     tk.Quyen = "SinhVien";
 
                     context.SinhViens.Add(sv);
@@ -464,16 +465,20 @@ namespace QuanLy_KyTucXa.Forms
                                 sv.NgayVao = nv;
 
                             // 3. Tự động tạo Tài khoản giống như khi Thêm bằng tay
+                            // Lấy 3 số cuối của MSSV
                             string matKhauTuDong = sv.MSSV.Length >= 3 ? sv.MSSV.Substring(sv.MSSV.Length - 3) : sv.MSSV;
+
                             TaiKhoan tk = new TaiKhoan();
-                            tk.TenTaiKhoan = sv.MSSV;
-                            tk.MatKhau = matKhauTuDong;
+                            tk.TenTaiKhoan = sv.MSSV; // Dùng sv.MSSV
+                            tk.MatKhau = MaHoaHelper.HashPassword(matKhauTuDong); // Đã băm an toàn
                             tk.Quyen = "SinhVien";
 
+                            
                             context.SinhViens.Add(sv);
                             context.TaiKhoans.Add(tk);
                             countThanhCong++;
-                        }
+                        
+                    }
 
                         context.SaveChanges();
                         MessageBox.Show($"Đã nhập thành công {countThanhCong} sinh viên mới.\n(Các sinh viên đã tồn tại MSSV bị bỏ qua để tránh lỗi)", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
