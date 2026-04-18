@@ -1,6 +1,6 @@
 ﻿namespace QuanLy_KyTucXa.Reports
 {
-    partial class frmThongKeHoaDon
+    partial class frmThongKeNhatKy
     {
         /// <summary>
         /// Required designer variable.
@@ -38,11 +38,11 @@
             // reportViewer1
             // 
             reportViewer1.Dock = DockStyle.Fill;
-            reportViewer1.Location = new Point(0, 0);
+            reportViewer1.Location = new Point(0, 42);
             reportViewer1.Name = "reportViewer1";
             reportViewer1.ServerReport.BearerToken = null;
-            reportViewer1.Size = new Size(818, 477);
-            reportViewer1.TabIndex = 0;
+            reportViewer1.Size = new Size(800, 408);
+            reportViewer1.TabIndex = 4;
             // 
             // cobLocTheoThang
             // 
@@ -70,20 +70,19 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(818, 42);
-            panel1.TabIndex = 3;
+            panel1.Size = new Size(800, 42);
+            panel1.TabIndex = 5;
             // 
-            // frmThongKeHoaDon
+            // frmThongKeNhatKy
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(818, 477);
-            Controls.Add(panel1);
+            ClientSize = new Size(800, 450);
             Controls.Add(reportViewer1);
-            Name = "frmThongKeHoaDon";
-            StartPosition = FormStartPosition.CenterScreen;
-            Text = "frmThongKeHoaDon";
-            Load += frmThongKeHoaDon_Load;
+            Controls.Add(panel1);
+            Name = "frmThongKeNhatKy";
+            Text = "frmThongKeNhatKy";
+            Load += frmThongKeNhatKy_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);

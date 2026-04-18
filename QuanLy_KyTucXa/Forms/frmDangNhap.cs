@@ -40,6 +40,8 @@ namespace QuanLy_KyTucXa.Forms
                     frmMain.MaNguoiDungHienTai = taiKhoan.TenTaiKhoan;
                     frmMain.QuyenHienTai = taiKhoan.Quyen;
 
+                    SystemLog.GhiNhatKy("Đăng nhập", $"Tài khoản {taiKhoan.TenTaiKhoan} đăng nhập vào hệ thống");
+
                     this.DialogResult = DialogResult.OK;
                     this.Close();
                 }

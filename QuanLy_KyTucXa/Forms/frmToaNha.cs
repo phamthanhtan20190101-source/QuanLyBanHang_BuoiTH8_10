@@ -152,6 +152,7 @@ namespace QuanLy_KyTucXa.Forms
                         // 4. Nếu phòng trống (soSinhVienDangO == 0) thì tiến hành xóa
                         context.Phongs.Remove(p);
                         context.SaveChanges();
+                        SystemLog.GhiNhatKy("Xóa phòng", $"Đã xóa phòng {currentMaPhong} khỏi hệ thống");
                         MessageBox.Show("Xóa phòng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                         // Tải lại lưới và đưa giao diện về trạng thái ban đầu
@@ -244,6 +245,12 @@ namespace QuanLy_KyTucXa.Forms
 
                 // Lưu thay đổi xuống CSDL
                 context.SaveChanges();
+
+                if (xuLyThem)
+                    SystemLog.GhiNhatKy("Thêm phòng", $"Thêm mới phòng {p.MaPhong} (Tòa {p.MaToaNha}, loại {p.LoaiPhong} người)");
+                else
+                    SystemLog.GhiNhatKy("Sửa phòng", $"Cập nhật thông tin phòng {p.MaPhong}");
+
 
                 MessageBox.Show(xuLyThem ? "Thêm mới thành công!" : "Cập nhật thành công!");
 
@@ -437,6 +444,8 @@ namespace QuanLy_KyTucXa.Forms
                         }
 
                         context.SaveChanges();
+
+                        SystemLog.GhiNhatKy("Nhập Excel", $"Đã nhập thêm {countThanhCong} phòng mới từ file Excel");
                         MessageBox.Show($"Đã nhập thành công {countThanhCong} phòng mới.\n(Các mã phòng đã tồn tại bị bỏ qua)", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                         // Gọi hàm LoadDataToAllGrids để làm mới cả 4 bảng (Tòa A, B, C, D) lập tức
@@ -491,6 +500,7 @@ namespace QuanLy_KyTucXa.Forms
                         sheet.Columns().AdjustToContents(); // Tự động căn chỉnh độ rộng cột
                         wb.SaveAs(saveFileDialog.FileName);
                     }
+                    SystemLog.GhiNhatKy("Xuất Excel", "Đã xuất danh sách phòng ra file Excel");
 
                     MessageBox.Show("Đã xuất dữ liệu ra tập tin Excel thành công.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }

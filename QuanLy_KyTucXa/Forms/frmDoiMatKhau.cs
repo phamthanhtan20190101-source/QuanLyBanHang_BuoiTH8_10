@@ -58,6 +58,8 @@ namespace QuanLy_KyTucXa.Forms
                     taiKhoan.MatKhau = MaHoaHelper.HashPassword(txtMatKhauMoi.Text);
                     context.SaveChanges();
 
+                    SystemLog.GhiNhatKy("Đổi mật khẩu", $"Tài khoản {tenUser} vừa thay đổi mật khẩu");
+
                     MessageBox.Show("Thay đổi mật khẩu thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
                 }

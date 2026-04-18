@@ -1,4 +1,5 @@
 ﻿using QuanLy_KyTucXa.Data;
+using QuanLy_KyTucXa.Reports;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -55,7 +56,7 @@ namespace QuanLy_KyTucXa.Forms
             }
             else if (QuyenHienTai == "QuanLy")
             {
-                
+
                 var nv = context.QuanLys.Find(MaNguoiDungHienTai);
                 if (nv != null) tenHienThi = nv.HoTenQuanLy; // Giả sử cột tên là HoTen
             }
@@ -208,6 +209,30 @@ namespace QuanLy_KyTucXa.Forms
                 }
             }
             catch (Exception ex) { }
+        }
+
+        private void mnuChuyenPhong_Click(object sender, EventArgs e)
+        {
+            frmChuyenPhong frm = new frmChuyenPhong();
+            frm.ShowDialog();
+        }
+
+        private void mnuLichSuHeThong_Click(object sender, EventArgs e)
+        {
+            if (QuyenHienTai == "QuanLy" || QuyenHienTai == "Admin")
+            {
+                frmThongKeNhatKy frm = new frmThongKeNhatKy();
+
+                // Dòng này để form báo cáo nằm gọn bên trong Form Main (MDI Parent)
+                // Nếu phần mềm của bạn không dùng form cha-con thì xóa hoặc bôi đen dòng này đi nhé
+                frm.MdiParent = this;
+
+                frm.Show();
+            }
+            else
+            {
+                MessageBox.Show("Chức năng này chỉ dành riêng cho Ban quản lý!", "Cảnh báo bảo mật", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }

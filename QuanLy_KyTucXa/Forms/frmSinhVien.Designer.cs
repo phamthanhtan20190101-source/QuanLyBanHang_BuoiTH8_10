@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             groupBox1 = new GroupBox();
+            btnXinRoiKTX = new Button();
+            btnDonXinChuyenPhong = new Button();
+            label10 = new Label();
+            txtTienNo = new TextBox();
             txtmaphong = new TextBox();
             txtngaysinh = new TextBox();
             txtngayvao = new TextBox();
@@ -47,11 +51,19 @@
             label2 = new Label();
             label1 = new Label();
             txtmssv = new TextBox();
+            groupBox2 = new GroupBox();
+            dgvLichSuDongTien = new DataGridView();
             groupBox1.SuspendLayout();
+            groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvLichSuDongTien).BeginInit();
             SuspendLayout();
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(btnXinRoiKTX);
+            groupBox1.Controls.Add(btnDonXinChuyenPhong);
+            groupBox1.Controls.Add(label10);
+            groupBox1.Controls.Add(txtTienNo);
             groupBox1.Controls.Add(txtmaphong);
             groupBox1.Controls.Add(txtngaysinh);
             groupBox1.Controls.Add(txtngayvao);
@@ -72,10 +84,46 @@
             groupBox1.Controls.Add(txtmssv);
             groupBox1.Location = new Point(23, 27);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(1262, 220);
+            groupBox1.Size = new Size(1276, 240);
             groupBox1.TabIndex = 7;
             groupBox1.TabStop = false;
             groupBox1.Text = "Thông tin sinh viên";
+            // 
+            // btnXinRoiKTX
+            // 
+            btnXinRoiKTX.Location = new Point(831, 194);
+            btnXinRoiKTX.Name = "btnXinRoiKTX";
+            btnXinRoiKTX.Size = new Size(418, 40);
+            btnXinRoiKTX.TabIndex = 27;
+            btnXinRoiKTX.Text = "Đơn Xin Rời KTX";
+            btnXinRoiKTX.UseVisualStyleBackColor = true;
+            btnXinRoiKTX.Click += btnXinRoiKTX_Click;
+            // 
+            // btnDonXinChuyenPhong
+            // 
+            btnDonXinChuyenPhong.Location = new Point(391, 194);
+            btnDonXinChuyenPhong.Name = "btnDonXinChuyenPhong";
+            btnDonXinChuyenPhong.Size = new Size(418, 40);
+            btnDonXinChuyenPhong.TabIndex = 26;
+            btnDonXinChuyenPhong.Text = "Đơn Xin Chuyển Phòng";
+            btnDonXinChuyenPhong.UseVisualStyleBackColor = true;
+            btnDonXinChuyenPhong.Click += btnDonXinChuyenPhong_Click;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(6, 198);
+            label10.Name = "label10";
+            label10.Size = new Size(79, 25);
+            label10.TabIndex = 24;
+            label10.Text = "Tiền nợ :";
+            // 
+            // txtTienNo
+            // 
+            txtTienNo.Location = new Point(87, 194);
+            txtTienNo.Name = "txtTienNo";
+            txtTienNo.Size = new Size(286, 31);
+            txtTienNo.TabIndex = 25;
             // 
             // txtmaphong
             // 
@@ -88,21 +136,21 @@
             // 
             txtngaysinh.Location = new Point(947, 96);
             txtngaysinh.Name = "txtngaysinh";
-            txtngaysinh.Size = new Size(286, 31);
+            txtngaysinh.Size = new Size(302, 31);
             txtngaysinh.TabIndex = 22;
             // 
             // txtngayvao
             // 
             txtngayvao.Location = new Point(947, 151);
             txtngayvao.Name = "txtngayvao";
-            txtngayvao.Size = new Size(286, 31);
+            txtngayvao.Size = new Size(302, 31);
             txtngayvao.TabIndex = 21;
             // 
             // txtgioitinh
             // 
             txtgioitinh.Location = new Point(947, 42);
             txtgioitinh.Name = "txtgioitinh";
-            txtgioitinh.Size = new Size(286, 31);
+            txtgioitinh.Size = new Size(302, 31);
             txtgioitinh.TabIndex = 20;
             // 
             // label9
@@ -221,17 +269,40 @@
             txtmssv.Size = new Size(286, 31);
             txtmssv.TabIndex = 2;
             // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(dgvLichSuDongTien);
+            groupBox2.Location = new Point(23, 273);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(1276, 284);
+            groupBox2.TabIndex = 8;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Lịch sử đóng tiền";
+            // 
+            // dgvLichSuDongTien
+            // 
+            dgvLichSuDongTien.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvLichSuDongTien.Dock = DockStyle.Fill;
+            dgvLichSuDongTien.Location = new Point(3, 27);
+            dgvLichSuDongTien.Name = "dgvLichSuDongTien";
+            dgvLichSuDongTien.RowHeadersWidth = 62;
+            dgvLichSuDongTien.Size = new Size(1270, 254);
+            dgvLichSuDongTien.TabIndex = 0;
+            // 
             // frmSinhVien
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1332, 443);
+            ClientSize = new Size(1332, 569);
+            Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Name = "frmSinhVien";
             Text = "frmSinhVien";
             Load += frmSinhVien_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
+            groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvLichSuDongTien).EndInit();
             ResumeLayout(false);
         }
 
@@ -256,5 +327,11 @@
         private TextBox txtngayvao;
         private TextBox txtgioitinh;
         private TextBox txtmaphong;
+        private Label label10;
+        private TextBox txtTienNo;
+        private Button btnDonXinChuyenPhong;
+        private Button btnXinRoiKTX;
+        private GroupBox groupBox2;
+        private DataGridView dgvLichSuDongTien;
     }
 }

@@ -162,6 +162,7 @@ namespace QuanLy_KyTucXa.Forms
 
             xuLyThem = false;
             BatTatChucNang(true);
+            SystemLog.GhiNhatKy("Sửa sinh viên", $"Sửa mới sinh viên {txtmssv.Text} - {txthoten.Text}");
             txtmssv.Enabled = false; // Không cho sửa khóa chính
         }
 
@@ -196,6 +197,8 @@ namespace QuanLy_KyTucXa.Forms
 
                         // Lưu cả 2 thao tác xuống CSDL cùng một lúc
                         context.SaveChanges();
+
+                        SystemLog.GhiNhatKy("Xóa sinh viên", $"Đã xóa sinh viên {currentMSSV} khỏi hệ thống");
 
                         MessageBox.Show("Đã xóa sinh viên và tài khoản thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         ResetForm();
@@ -302,6 +305,7 @@ namespace QuanLy_KyTucXa.Forms
 
                         context.SinhViens.Update(sv);
                         context.SaveChanges();
+                        SystemLog.GhiNhatKy("Thêm sinh viên", $"Thêm mới sinh viên {txtmssv.Text} - {txthoten.Text}");
                         MessageBox.Show("Cập nhật thông tin thành công!");
                     }
                 }
@@ -382,6 +386,8 @@ namespace QuanLy_KyTucXa.Forms
                         sheet.Columns().AdjustToContents(); // Tự động căn chỉnh độ rộng cột
                         wb.SaveAs(saveFileDialog.FileName);
                     }
+
+                    SystemLog.GhiNhatKy("Xuất Excel", "Đã xuất danh sách phòng ra file Excel");
 
                     MessageBox.Show("Đã xuất dữ liệu ra tập tin Excel thành công.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -481,6 +487,8 @@ namespace QuanLy_KyTucXa.Forms
                     }
 
                         context.SaveChanges();
+
+                        SystemLog.GhiNhatKy("Nhập Excel", $"Đã nhập thêm {countThanhCong} phòng mới từ file Excel");
                         MessageBox.Show($"Đã nhập thành công {countThanhCong} sinh viên mới.\n(Các sinh viên đã tồn tại MSSV bị bỏ qua để tránh lỗi)", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                         // Gọi hàm LoadData để cập nhật lại lưới DataGridView

@@ -22,6 +22,8 @@ namespace QuanLy_KyTucXa.Data
 
         public DbSet<TienNo> TienNos { get; set; }
 
+        public virtual DbSet<NhatKyHeThong> NhatKyHeThongs { get; set; }
+
         // 2. Cấu hình chuỗi kết nối
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

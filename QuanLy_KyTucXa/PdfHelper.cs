@@ -84,5 +84,93 @@ namespace QuanLy_KyTucXa
                 }
             }
         }
+
+        public static void XuatDonPDF(string loaiDon, SinhVien sv, string tenToaNha, string tenQuanLy)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.FileName = $"DonXin_{loaiDon.Replace(" ", "")}_{sv.MSSV}.pdf";
+            sfd.Filter = "PDF File | *.pdf";
+
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    using (FileStream fs = new FileStream(sfd.FileName, FileMode.Create))
+                    {
+                        iText.Kernel.Pdf.PdfWriter writer = new iText.Kernel.Pdf.PdfWriter(fs);
+                        iText.Kernel.Pdf.PdfDocument pdf = new iText.Kernel.Pdf.PdfDocument(writer);
+                        iText.Layout.Document document = new iText.Layout.Document(pdf);
+
+                        // --- SỬA LỖI Ở ĐÂY: Dùng iText.Kernel.Font.PdfFontFactory thay vì IO ---
+                        string fontPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "Arial.ttf");
+                        iText.Kernel.Font.PdfFont font = iText.Kernel.Font.PdfFontFactory.CreateFont(fontPath, iText.IO.Font.PdfEncodings.IDENTITY_H);
+
+                        // Quốc hiệu, Tiêu ngữ
+                        document.Add(new iText.Layout.Element.Paragraph("CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM")
+                            .SetFont(font).SetFontSize(14).SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER));
+                        document.Add(new iText.Layout.Element.Paragraph("Độc lập - Tự do - Hạnh phúc")
+                            .SetFont(font).SetFontSize(13).SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER));
+                        document.Add(new iText.Layout.Element.Paragraph("------------------------\n").SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER));
+
+                        // Tên đơn
+                        document.Add(new iText.Layout.Element.Paragraph($"ĐƠN XIN {loaiDon.ToUpper()}")
+                            .SetFont(font).SetFontSize(18).SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER));
+
+                        document.Add(new iText.Layout.Element.Paragraph("\n"));
+
+                        // Kính gửi
+                        document.Add(new iText.Layout.Element.Paragraph($"Kính gửi: Ban Quản lý KTX - Người quản lý tòa nhà {tenToaNha}")
+                            .SetFont(font).SetFontSize(12));
+
+                        document.Add(new iText.Layout.Element.Paragraph("\n"));
+
+                        // Thông tin sinh viên
+                        document.Add(new iText.Layout.Element.Paragraph($"Tên tôi là: {sv.HoTen}").SetFont(font));
+                        document.Add(new iText.Layout.Element.Paragraph($"Mã số sinh viên: {sv.MSSV}            Lớp: {sv.Lop}").SetFont(font));
+                        document.Add(new iText.Layout.Element.Paragraph($"Số điện thoại: {sv.SDT}").SetFont(font));
+                        document.Add(new iText.Layout.Element.Paragraph($"Hiện đang lưu trú tại phòng: {sv.MaPhong} (Tòa nhà {tenToaNha})").SetFont(font));
+
+                        document.Add(new iText.Layout.Element.Paragraph("\n"));
+
+                        // Lý do
+                        document.Add(new iText.Layout.Element.Paragraph("Nay tôi làm đơn này để xin phép được " + loaiDon.ToLower() + " với lý do:").SetFont(font));
+                        document.Add(new iText.Layout.Element.Paragraph("......................................................................................................................................").SetFont(font));
+                        document.Add(new iText.Layout.Element.Paragraph("......................................................................................................................................").SetFont(font));
+                        document.Add(new iText.Layout.Element.Paragraph("......................................................................................................................................").SetFont(font));
+
+                        // Lời cam đoan
+                        document.Add(new iText.Layout.Element.Paragraph("\nKính mong Ban Quản lý xem xét và giải quyết. Tôi xin chân thành cảm ơn!\n\n").SetFont(font));
+
+                        // --- PHẦN MỚI: CHỮ KÝ VÀ TÊN HIỂN THỊ (Dùng Table 2 cột ẩn viền để canh giữa hoàn hảo) ---
+                        iText.Layout.Element.Table tableChuKy = new iText.Layout.Element.Table(2).UseAllAvailableWidth();
+
+                        // Cột trái: Quản lý
+                        iText.Layout.Element.Cell cellQuanLy = new iText.Layout.Element.Cell()
+                            .Add(new iText.Layout.Element.Paragraph("Người quản lý\n(Ký và ghi rõ họ tên)\n\n\n\n" + tenQuanLy)
+                            .SetFont(font).SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER))
+                            .SetBorder(iText.Layout.Borders.Border.NO_BORDER);
+
+                        // Cột phải: Sinh viên
+                        iText.Layout.Element.Cell cellSinhVien = new iText.Layout.Element.Cell()
+                            .Add(new iText.Layout.Element.Paragraph("Sinh viên ký tên\n(Ký và ghi rõ họ tên)\n\n\n\n" + sv.HoTen)
+                            .SetFont(font).SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER))
+                            .SetBorder(iText.Layout.Borders.Border.NO_BORDER);
+
+                        tableChuKy.AddCell(cellQuanLy);
+                        tableChuKy.AddCell(cellSinhVien);
+
+                        document.Add(tableChuKy);
+                        // --------------------------------------------------------------------------------------
+
+                        document.Close();
+                    }
+                    MessageBox.Show($"Đã lưu {loaiDon} thành công dưới dạng PDF!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi xuất PDF: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
     }
 }

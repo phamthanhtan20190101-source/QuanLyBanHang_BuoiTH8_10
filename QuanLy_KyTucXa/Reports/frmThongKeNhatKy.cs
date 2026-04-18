@@ -8,79 +8,72 @@ using System.Windows.Forms;
 
 namespace QuanLy_KyTucXa.Reports
 {
-    public partial class frmThongKeHoaDon : Form
+    public partial class frmThongKeNhatKy : Form
     {
         QLKTXDbContext context = new QLKTXDbContext();
-        QuanLyKTX.LichSuHoaDonDataTable dtHoaDon = new QuanLyKTX.LichSuHoaDonDataTable();
+
+        // Khai báo biến trỏ tới cái bảng bạn vừa tạo trong DataSet ở Bước 1
+        QuanLyKTX.NhatKyHeThongDataTable dtNhatKy = new QuanLyKTX.NhatKyHeThongDataTable();
+
         string reportsFolder = Application.StartupPath.Replace("bin\\Debug\\net8.0-windows", "Reports");
 
-        public frmThongKeHoaDon()
+        public frmThongKeNhatKy()
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
         }
 
-        private void frmThongKeHoaDon_Load(object sender, EventArgs e)
+        private void frmThongKeNhatKy_Load(object sender, EventArgs e)
         {
-            // Thêm mục "Tất cả" lên đầu ComboBox
             if (!cobLocTheoThang.Items.Contains("Tất cả"))
             {
                 cobLocTheoThang.Items.Insert(0, "Tất cả");
             }
-
-            // Tự động kích hoạt chọn "Tất cả" khi mới mở Form (Sẽ tự gọi hàm LoadBaoCao)
             cobLocTheoThang.SelectedIndex = 0;
         }
 
-        // Tạo một hàm riêng chuyên dùng để Load Báo Cáo
         private void LoadBaoCao(int thangLoc)
         {
             try
             {
-                // 1. Tạo câu truy vấn
-                var query = context.HoaDons.AsQueryable();
+                var query = context.NhatKyHeThongs.AsQueryable();
 
-                // 2. Lọc theo tháng nếu thangLoc > 0 (Nếu là 0 thì bỏ qua bước này để lấy tất cả)
+                // Lọc theo tháng của năm hiện tại
                 if (thangLoc > 0)
                 {
-                    query = query.Where(hd => hd.Thang == thangLoc);
+                    query = query.Where(nk => nk.ThoiGian.Month == thangLoc && nk.ThoiGian.Year == DateTime.Now.Year);
                 }
 
-                // 3. Lấy dữ liệu
-                var danhSachHoaDon = query.OrderByDescending(hd => hd.NgayTao).Select(hd => new
+                var danhSachNhatKy = query.OrderByDescending(nk => nk.ThoiGian).Select(nk => new
                 {
-                    hd.MaHoaDon,
-                    hd.MSSV,
-                    hd.MaQuanLy,
-                    hd.NgayTao,
-                    hd.Thang,
-                    hd.TongTien,
-                    hd.TrangThai
+                    nk.MaNhatKy,
+                    nk.TenNguoiDung,
+                    nk.ThoiGian,
+                    nk.HanhDong,
+                    nk.ChiTiet
                 }).ToList();
 
-                // 4. Đổ dữ liệu vào DataTable
-                dtHoaDon.Clear();
-                foreach (var row in danhSachHoaDon)
+                dtNhatKy.Clear();
+                foreach (var row in danhSachNhatKy)
                 {
-                    dtHoaDon.AddLichSuHoaDonRow(
-                        row.MaHoaDon,
-                        row.MSSV,
-                        row.MaQuanLy,
-                        row.NgayTao,
-                        row.Thang.ToString(),
-                        row.TongTien,
-                        row.TrangThai
+                    // Truyền dữ liệu vào DataTable (Ép kiểu ngày tháng sang chuỗi cho đẹp)
+                    dtNhatKy.AddNhatKyHeThongRow(
+                        row.MaNhatKy,
+                        row.TenNguoiDung,
+                        row.ThoiGian,
+                        row.HanhDong,
+                        row.ChiTiet
                     );
                 }
 
-                // 5. Cập nhật ReportViewer
                 ReportDataSource reportDataSource = new ReportDataSource();
+                // Tên này phải trùng khớp CHÍNH XÁC với tên Data source bạn đã đặt ở Bước 2.4
                 reportDataSource.Name = "DataSet1";
-                reportDataSource.Value = dtHoaDon;
+                reportDataSource.Value = dtNhatKy;
 
                 reportViewer1.LocalReport.DataSources.Clear();
                 reportViewer1.LocalReport.DataSources.Add(reportDataSource);
-                reportViewer1.LocalReport.ReportPath = Path.Combine(reportsFolder, "ThongKeHoaDon.rdlc");
+                reportViewer1.LocalReport.ReportPath = Path.Combine(reportsFolder, "ThongKeNhatKy.rdlc");
 
                 reportViewer1.SetDisplayMode(DisplayMode.PrintLayout);
                 reportViewer1.ZoomMode = ZoomMode.Percent;
@@ -93,20 +86,18 @@ namespace QuanLy_KyTucXa.Reports
             }
         }
 
-        // Sự kiện khi người dùng chọn một tháng khác trên ComboBox
         private void cobLocTheoThang_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cobLocTheoThang.SelectedIndex == 0 || cobLocTheoThang.Text == "Tất cả")
             {
-                LoadBaoCao(0); // Lấy tất cả
+                LoadBaoCao(0);
             }
             else
             {
-                // Xử lý cắt chuỗi "Tháng 4" -> Lấy số 4
                 string chuoiThang = cobLocTheoThang.Text.Replace("Tháng", "").Trim();
                 if (int.TryParse(chuoiThang, out int thang))
                 {
-                    LoadBaoCao(thang); // Gọi hàm tải báo cáo chỉ cho tháng này
+                    LoadBaoCao(thang);
                 }
             }
         }

@@ -66,6 +66,8 @@ namespace QuanLy_KyTucXa.Forms
             if (coPhatSinhNo)
             {
                 context.SaveChanges();
+
+
                 MessageBox.Show($"Hệ thống phát hiện đã bước sang tháng mới (Tháng {thangHienTai}).\nĐã tự động cộng thẳng tiền phòng và điện nước vào nợ của tất cả sinh viên!", "Tự động chốt sổ", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             // Tải dữ liệu lên lưới
@@ -312,6 +314,8 @@ namespace QuanLy_KyTucXa.Forms
 
                 // 5. LƯU TẤT CẢ VÀO DATABASE
                 context.SaveChanges();
+
+                SystemLog.GhiNhatKy("Thu tiền", $"Đã thu {tongTienNhan:N0}đ của sinh viên {mssv}");
                 MessageBox.Show("Xác nhận thanh toán và xuất hóa đơn thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 if (MessageBox.Show("Bạn có muốn in hóa đơn PDF không?", "In hóa đơn", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
